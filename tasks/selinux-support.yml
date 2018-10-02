@@ -1,0 +1,21 @@
+---
+- name: "Install ansible selinux support library"
+  package:
+    name: "libselinux-python"
+    state: "present"
+  become: True
+
+- name: "Install ansible selinux configure libraries"
+  package:
+    name: "{{ item }}"
+    state: "present"
+  with_items:
+    - policycoreutils-python
+    - libsemanage-python
+  when: ansible_selinux.status == "enabled"
+  become: True
+
+- name: "Enable connections to HTTP port"
+  seport: ports="{{ elasticsearch_port }}" proto=tcp setype=http_port_t state=present
+  when: ansible_selinux.status == "enabled" and ansible_selinux.mode != "disabled"
+  become: True

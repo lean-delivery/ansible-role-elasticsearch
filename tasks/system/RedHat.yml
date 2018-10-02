@@ -1,0 +1,19 @@
+---
+- name: "Add Elastic repo"
+  template:
+    src: "elasticsearch.repo"
+    dest: "/etc/yum.repos.d/elasticsearch-{{ es_major_version }}.repo"
+  become: True
+
+- name: "Importing latest logstash GPG Key"
+  rpm_key:
+    key: "{{ elastic_gpg_key }}"
+    state: "present"
+  become: True
+
+- name: "Set elasticsearch default file location"
+  set_fact:
+    es_default_file: "{{ es_default_file_redhat }}"
+
+- name: "Checking selinux support"
+  include_tasks: "selinux-support.yml"
