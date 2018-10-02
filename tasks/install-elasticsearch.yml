@@ -1,0 +1,32 @@
+---
+- name: "Installing Elasticsearch package"
+  package:
+    name: "elasticsearch"
+    state: "present"
+  become: True
+  notify: "Restart elasticsearch"
+
+- name: "Hint extended documentation for heapsize tuning"
+  debug: msg='Your system have more than 64G RAM so please refer to \
+         https\://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html'
+  when: ansible_memory_mb.real.total|int >= 65536
+
+- name: "Correcting elasticsearch default settings"
+  include_tasks: "es-settings.yml"
+  when: elasticsearch_set_settings
+
+- name: "Installing elasticsearch scripts"
+  include_tasks: "add-scripts.yml"
+  when: elasticsearch_scripts_install
+
+- name: "Flush handlers"
+  meta: flush_handlers
+
+- name: "Start elasticsearch"
+  service:
+    name: "elasticsearch"
+    state: "started"
+    enabled: True
+  when:
+    - es_start_service
+  become: True

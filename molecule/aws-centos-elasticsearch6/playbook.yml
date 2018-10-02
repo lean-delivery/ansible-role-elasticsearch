@@ -1,0 +1,10 @@
+---
+- name: "Testing elasticsearch role on CentOS"
+  hosts: ansible_role_elasticsearch_v6_centos
+  gather_facts: True
+  roles:
+    - role: lean_delivery.java
+    - role: ansible-role-elasticsearch
+  vars:
+    elasticsearch_host: localhost
+    elastic_branch: 6

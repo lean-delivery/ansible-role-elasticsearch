@@ -1,0 +1,29 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: "elasticsearch"
+  author: "Lean Delivery Team <team@lean-delivery.com>"
+  description: "Role for elasticsearch installation"
+  company: "EPAM Systems"
+  license: "Apache"
+  min_ansible_version: 2.5
+  issue_tracker_url: "https://github.com/lean-delivery/ansible-role-elasticsearch/issues"
+
+  platforms:
+    - name: "EL"
+      versions:
+        - 6
+        - 7
+    - name: Ubuntu
+      versions:
+        - 18.04
+
+  galaxy_tags:
+    - "elasticsearch"
+    - "elastic"
+    - "elk"
+    - "logging"
+    - "monitoring"
+    - "system"
+    - "web"

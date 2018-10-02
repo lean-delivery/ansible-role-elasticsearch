@@ -1,0 +1,39 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: .yamllint
+platforms:
+  - name: test-docker-centos7-elasticsearch5
+    image: leandelivery/docker-systemd:centos7
+    privileged: True
+    env:
+      TERM: xterm
+    groups:
+      - ansible_role_elasticsearch_v5_centos
+  - name: test-docker-centos7-elasticsearch6
+    image: leandelivery/docker-systemd:centos7
+    privileged: True
+    env:
+      TERM: xterm
+    groups:
+      - ansible_role_elasticsearch_v6_centos
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: docker-centos-elasticsearch5-6
+verifier:
+  name: testinfra
+  options:
+    verbose: True
+  directory: ../resources/tests/
+  lint:
+    name: flake8

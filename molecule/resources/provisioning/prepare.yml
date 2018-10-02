@@ -1,0 +1,29 @@
+---
+- name: Prepare Ubuntu / Debian
+  hosts: ansible_role_elasticsearch_v5_ubuntu:ansible_role_elasticsearch_v6_ubuntu
+  gather_facts: False
+  tasks:
+    - name: Workaround for Ubuntu/Debian images
+      raw: |
+        systemctl stop apt-daily.timer;
+        systemctl stop apt-daily-upgrade.timer;
+        systemctl kill --kill-who=all apt-daily.service
+        systemctl kill --kill-who=all apt-daily-upgrade.service
+        sleep 5
+        apt -y purge unattended-upgrades
+        apt-get update
+      become: True
+      changed_when: False
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt install -y python-minimal python-zipstream)
+      become: True
+      changed_when: False
+
+- name: Prepare RHEL
+  hosts: ansible_role_elasticsearch_v5_centos:ansible_role_elasticsearch_v6_centos
+  gather_facts: False
+  tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (yum install -y python2 python-simplejson)
+      become: True
+      changed_when: False

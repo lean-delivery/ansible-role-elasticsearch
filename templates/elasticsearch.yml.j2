@@ -1,0 +1,24 @@
+
+{% if es_config %}
+{{ es_config | to_nice_yaml }}
+{% endif %}
+
+{% if es_config['cluster.name'] is not defined %}
+cluster.name: elasticsearch
+{% endif %}
+
+{% if es_config['node.name'] is not defined %}
+node.name: {{ inventory_hostname }}
+{% endif %}
+
+#################################### Paths ####################################
+
+# Path to directory containing configuration (this file and logging.yml):
+
+{% if (es_major_version is version_compare('6.0.0', '<')) %}
+path.conf: {{ es_conf_dir }}
+{% endif %}
+
+path.data: {{ es_data_dirs }}
+
+path.logs: {{ es_log_dir }}

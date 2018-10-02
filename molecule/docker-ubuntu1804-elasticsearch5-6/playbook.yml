@@ -1,0 +1,23 @@
+---
+- name: "Testing elasticsearch v5 role on Ubuntu"
+  hosts: ansible_role_elasticsearch_v5_ubuntu
+  gather_facts: True
+  roles:
+    - role: lean_delivery.java
+    - role: ansible-role-elasticsearch
+  vars:
+    elasticsearch_host: localhost
+    elasticsearch_xmx: "256m"
+    elasticsearch_xms: "256m"
+
+- name: "Testing elasticsearch v6 role on Ubuntu"
+  hosts: ansible_role_elasticsearch_v6_ubuntu
+  gather_facts: True
+  roles:
+    - role: lean_delivery.java
+    - role: ansible-role-elasticsearch
+  vars:
+    elasticsearch_host: localhost
+    elastic_branch: 6
+    elasticsearch_xmx: "256m"
+    elasticsearch_xms: "256m"

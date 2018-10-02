@@ -1,0 +1,58 @@
+---
+- name: "Setting m_lock"
+  set_fact: >-
+    m_lock_enabled={{ es_config['bootstrap.memory_lock']
+    is defined and es_config['bootstrap.memory_lock'] == True }}
+
+- name: "Copy Configuration File"
+  template:
+    src: "elasticsearch.yml.j2"
+    dest: "{{ es_conf_dir }}/elasticsearch.yml"
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: "0644"
+    force: True
+  notify: "Restart elasticsearch"
+  become: True
+
+- name: "Copy Default File for Instance"
+  template:
+    src: "elasticsearch.j2"
+    dest: "{{ es_default_file }}"
+    mode: "0644"
+    force: True
+  notify: "Restart elasticsearch"
+  become: True
+
+- name: "Copy Redhat Init File for Instance"
+  template:
+    src: "init/redhat/elasticsearch.j2"
+    dest: "{{ es_init_script }}"
+    mode: "0755"
+    force: True
+  when: ansible_facts.service_mgr == "upstart"
+  notify: "Restart elasticsearch"
+  become: True
+
+- name: "Copy Systemd File for Instance"
+  template:
+    src: "systemd/elasticsearch.service.j2"
+    dest: "{{ es_sysd_script }}"
+    mode: "0644"
+    force: True
+  when: ansible_facts.service_mgr == "systemd"
+  notify:
+    - "Reload systemd configuration"
+    - "Restart elasticsearch"
+  become: True
+
+- name: "Copy jvm.options File for Instance"
+  template:
+    src: "jvm.options.j2"
+    dest: "{{ es_conf_dir }}/jvm.options"
+    owner: "{{ es_user }}"
+    group: "{{ es_group }}"
+    mode: "0644"
+    force: True
+  notify: "Restart elasticsearch"
+  become: True
