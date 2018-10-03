@@ -23,74 +23,38 @@ docker-ubuntu1804-elasticsearch-5.x-and-6.x:
   tags:
     - docker
 
-epc-centos-elasticsearch-5.x:
+epc-elasticsearch-5.x:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
   script:
-    - molecule test -s epc-centos-elasticsearch5
+    - molecule test -s epc-elasticsearch5
   tags:
     - delegated
 
-epc-centos-elasticsearch-6.x:
+epc-elasticsearch-6.x:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
   script:
-    - molecule test -s epc-centos-elasticsearch6
+    - molecule test -s epc-elasticsearch6
   tags:
     - delegated
 
-epc-ubuntu1804-elasticsearch-5.x:
-  variables:
-    EPC_REGION: EPAM-BY2
-  stage: deployment test
-  script:
-    - molecule test -s epc-ubuntu1804-elasticsearch5
-  tags:
-    - delegated
-
-epc-ubuntu1804-elasticsearch-6.x:
-  variables:
-    EPC_REGION: EPAM-BY2
-  stage: deployment test
-  script:
-    - molecule test -s epc-ubuntu1804-elasticsearch6
-  tags:
-    - delegated
-
-aws-centos-elasticsearch-5.x:
+aws-elasticsearch-5.x:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
   script:
-    - molecule test -s aws-centos-elasticsearch5
+    - molecule test -s aws-elasticsearch5
   tags:
     - delegated
 
-aws-centos-elasticsearch-6.x:
+aws-elasticsearch-6.x:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
   script:
-    - molecule test -s aws-centos-elasticsearch6
-  tags:
-    - delegated
-
-aws-ubuntu1804-elasticsearch-5.x:
-  variables:
-    EPC_REGION: AWS-EUCENTRAL
-  stage: deployment test
-  script:
-    - molecule test -s aws-ubuntu1804-elasticsearch5
-  tags:
-    - delegated
-
-aws-ubuntu1804-elasticsearch-6.x:
-  variables:
-    EPC_REGION: AWS-EUCENTRAL
-  stage: deployment test
-  script:
-    - molecule test -s aws-ubuntu1804-elasticsearch6
+    - molecule test -s aws-elasticsearch6
   tags:
     - delegated

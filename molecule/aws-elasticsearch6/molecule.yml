@@ -10,6 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
+  - name: test-aws-centos7-elasticsearch6
+    image: CentOS7_64-bit
+    shape: large
+    region: AWS-EUCENTRAL
+    wait_timeout: 1800
+    groups:
+      - ansible_role_elasticsearch_v6_centos
   - name: test-aws-ubuntu1804-elasticsearch6
     image: Ubuntu18.04_64-bit
     shape: large
@@ -32,7 +39,7 @@ provisioner:
     ANSIBLE_LIBRARY:
       /home/gitlab-runner/.local/lib/python2.7/site-packages/epam_ansible
 scenario:
-  name: aws-ubuntu1804-elasticsearch6
+  name: aws-elasticsearch6
 verifier:
   name: testinfra
   options:

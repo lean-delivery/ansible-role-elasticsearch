@@ -1,9 +1,0 @@
----
-- name: "Testing elasticsearch role on Ubuntu"
-  hosts: ansible_role_elasticsearch_v5_ubuntu
-  gather_facts: True
-  roles:
-    - role: lean_delivery.java
-    - role: ansible-role-elasticsearch
-  vars:
-    elasticsearch_host: localhost

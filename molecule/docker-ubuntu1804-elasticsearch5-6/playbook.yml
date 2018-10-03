@@ -7,8 +7,8 @@
     - role: ansible-role-elasticsearch
   vars:
     elasticsearch_host: localhost
-    elasticsearch_xmx: "256m"
-    elasticsearch_xms: "256m"
+    elasticsearch_xmx: "128m"
+    elasticsearch_xms: "128m"
 
 - name: "Testing elasticsearch v6 role on Ubuntu"
   hosts: ansible_role_elasticsearch_v6_ubuntu
@@ -19,5 +19,5 @@
   vars:
     elasticsearch_host: localhost
     elastic_branch: 6
-    elasticsearch_xmx: "256m"
-    elasticsearch_xms: "256m"
+    elasticsearch_xmx: "128m"
+    elasticsearch_xms: "128m"
