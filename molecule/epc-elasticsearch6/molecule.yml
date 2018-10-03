@@ -10,13 +10,20 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-epc-ubuntu1804-elasticsearch5
+  - name: test-epc-centos7-elasticsearch6
+    image: CentOS7_64-bit
+    shape: large
+    region: EPAM-BY2
+    wait_timeout: 1800
+    groups:
+      - ansible_role_elasticsearch_v6_centos
+  - name: test-epc-ubuntu1804-elasticsearch6
     image: Ubuntu18.04_64-bit
     shape: large
     region: EPAM-BY2
     wait_timeout: 1800
     groups:
-      - ansible_role_elasticsearch_v5_ubuntu
+      - ansible_role_elasticsearch_v6_ubuntu
 provisioner:
   name: ansible
   playbooks:
@@ -32,7 +39,7 @@ provisioner:
     ANSIBLE_LIBRARY:
       /home/gitlab-runner/.local/lib/python2.7/site-packages/epam_ansible
 scenario:
-  name: epc-ubuntu1804-elasticsearch5
+  name: epc-elasticsearch6
 verifier:
   name: testinfra
   options:
