@@ -7,7 +7,7 @@
   notify: "Restart elasticsearch"
 
 - name: "Hint extended documentation for heapsize tuning"
-  debug: 
+  debug:
     msg: 'Your system have more than 64G RAM so please refer  to \
          https\://www.elastic.co/guide/en/elasticsearch/guide/current/_limiting_memory_usage.html'
   when: ansible_memory_mb.real.total|int >= 65536
