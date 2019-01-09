@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: lean_delivery.java
+      java_major_version: 8
+    - role: ansible-role-elasticsearch
+      elasticsearch_host: localhost
+      elastic_branch: 6

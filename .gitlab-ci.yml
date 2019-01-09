@@ -9,21 +9,30 @@ before_script:
 variables:
   GET_SOURCES_ATTEMPTS: "5"
 
-docker-centos-elasticsearch-5.x-and-6.x:
+aws-direct-6:
+  variables:
+    AWS_REGION: us-east-1
+  stage: deployment test
+  script:
+    - molecule test -s aws-direct-6
+  tags:
+    - aws
+
+.docker-centos-elasticsearch-5.x-and-6.x:
   stage: deployment test
   script:
     - molecule test -s docker-centos-elasticsearch5-6
   tags:
     - docker
 
-docker-ubuntu1804-elasticsearch-5.x-and-6.x:
+.docker-ubuntu1804-elasticsearch-5.x-and-6.x:
   stage: deployment test
   script:
     - molecule test -s docker-ubuntu1804-elasticsearch5-6
   tags:
     - docker
 
-epc-elasticsearch-5.x:
+.epc-elasticsearch-5.x:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -32,7 +41,7 @@ epc-elasticsearch-5.x:
   tags:
     - delegated
 
-epc-elasticsearch-6.x:
+.epc-elasticsearch-6.x:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
@@ -41,7 +50,7 @@ epc-elasticsearch-6.x:
   tags:
     - delegated
 
-aws-elasticsearch-5.x:
+.aws-elasticsearch-5.x:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
@@ -50,7 +59,7 @@ aws-elasticsearch-5.x:
   tags:
     - delegated
 
-aws-elasticsearch-6.x:
+.aws-elasticsearch-6.x:
   variables:
     EPC_REGION: AWS-EUCENTRAL
   stage: deployment test
