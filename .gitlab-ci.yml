@@ -14,7 +14,7 @@ aws-direct-6:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s aws-direct-6
+    - molecule test -s aws-direct-elasticsearch-6
   tags:
     - aws
 

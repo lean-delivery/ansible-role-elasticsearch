@@ -20,6 +20,26 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+  - name: test-aws-centos6-elasticsearch-6
+    image: ami-1585c46a
+    instance_type: m4.large
+    region: us-east-1
+    vpc_subnet_id: subnet-01be2149
+    spot_price: 0.04
+    wait_timeout: 1800
+    ssh_user: centos
+    groups:
+      - rhel_family
+  - name: test-aws-ubuntu18LTS-elasticsearch-6
+    image: ami-0ac019f4fcb7cb7e6
+    instance_type: m5.large
+    region: us-east-1
+    vpc_subnet_id: subnet-01be2149
+    spot_price: 0.04
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
 provisioner:
   name: ansible
   log: False
@@ -32,7 +52,7 @@ provisioner:
   # env:
   #   ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: aws-direct-6
+  name: aws-direct-elasticsearch-6
 verifier:
   name: testinfra
   options:
