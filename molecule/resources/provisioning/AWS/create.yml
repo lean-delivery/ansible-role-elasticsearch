@@ -37,7 +37,7 @@
     - name: Persist the keypair
       copy:
         dest: "{{ keypair_path }}"
-        content: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
+        content: "{{ lookup('env', 'MOLECULE_SSH_PRIVATE_KEY') }}"
         mode: 0600
       no_log: True
 
