@@ -30,7 +30,7 @@
     dest: "{{ es_init_script }}"
     mode: "0755"
     force: True
-  when: ansible_facts.service_mgr == "upstart"
+  when: ansible_service_mgr == "upstart"
   notify: "Restart elasticsearch"
   become: True
 
@@ -40,7 +40,7 @@
     dest: "{{ es_sysd_script }}"
     mode: "0644"
     force: True
-  when: ansible_facts.service_mgr == "systemd"
+  when: ansible_service_mgr == "systemd"
   notify:
     - "Reload systemd configuration"
     - "Restart elasticsearch"
