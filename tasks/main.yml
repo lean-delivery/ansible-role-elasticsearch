@@ -6,7 +6,7 @@
     - "system/{{ ansible_os_family }}.yml"
     - "system/not-supported.yml"
   loop_control:
-    loop_var: platform
+    loop_var: "platform"
 
 - name: "Installing elasticsearch"
   include_tasks: install-elasticsearch.yml
