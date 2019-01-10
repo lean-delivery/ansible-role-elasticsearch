@@ -1,5 +1,6 @@
 ---
 elastic_branch: 6
+m_lock_enabled: False
 es_major_version: "{{ elastic_branch }}.x"
 es_max_threads: "{{ 2048 if ( es_major_version is version('6.0.0', '<')) else 8192 }}"
 es_jvm_custom_parameters: ''
