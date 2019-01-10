@@ -18,9 +18,9 @@
         description: Elasticsearch repository
         file: elasticsearch
         baseurl: 'https://artifacts.elastic.co/packages/{{ es_major_version }}/yum'
-        gpgcheck: yes
+        gpgcheck: True
         gpgkey: '{{ elastic_gpg_key }}'
-        enabled: yes
+        enabled: True
         state: present
   become: True
 

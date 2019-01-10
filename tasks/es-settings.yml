@@ -1,8 +1,8 @@
 ---
-- name: "Setting m_lock"
-  set_fact: >-
-    m_lock_enabled={{ es_config['bootstrap.memory_lock']
-    is defined and es_config['bootstrap.memory_lock'] == True }}
+# - name: "Setting m_lock"
+#   set_fact: >-
+#     m_lock_enabled={{ es_config['bootstrap.memory_lock']
+#     is defined and es_config['bootstrap.memory_lock'] == True }}
 
 - name: "Copy Configuration File"
   template:
