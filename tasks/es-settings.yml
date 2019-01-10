@@ -17,11 +17,11 @@
 
 - name: "Copy Default File for Instance"
   template:
-    src: "elasticsearch.j2"
-    dest: "{{ es_default_file }}"
-    mode: "0644"
+    src: elasticsearch.j2
+    dest: '{{ es_default_file }}'
+    mode: 0644
     force: True
-  notify: "Restart elasticsearch"
+  notify: Restart elasticsearch
   become: True
 
 - name: "Copy Redhat Init File for Instance"
