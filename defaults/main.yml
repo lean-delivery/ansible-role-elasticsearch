@@ -17,8 +17,8 @@ es_log_dir: "/var/log/elasticsearch"
 es_conf_dir: "/etc/elasticsearch"
 es_data_dirs: "/var/lib/elasticsearch"
 es_basename: "elasticsearch"
-es_user: "elasticsearch"
-es_group: "elasticsearch"
+es_user: elasticsearch
+es_group: elasticsearch
 es_config:
   network.host: "{{ elasticsearch_host }}"
 es_home: "/usr/share/elasticsearch"

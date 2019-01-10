@@ -1,16 +1,15 @@
 ---
-# - name: "Setting m_lock"
-#   set_fact: >-
-#     m_lock_enabled={{ es_config['bootstrap.memory_lock']
-#     is defined and es_config['bootstrap.memory_lock'] == True }}
+- name: "Setting m_lock"
+  set_fact: >-
+    m_lock_enabled={{ es_config['bootstrap.memory_lock'] }}
 
 - name: "Copy Configuration File"
   template:
-    src: "elasticsearch.yml.j2"
-    dest: "{{ es_conf_dir }}/elasticsearch.yml"
-    owner: "{{ es_user }}"
-    group: "{{ es_group }}"
-    mode: "0644"
+    src: elasticsearch.yml.j2
+    dest: '{{ es_conf_dir }}/elasticsearch.yml'
+    owner: '{{ es_user }}'
+    group: '{{ es_group }}'
+    mode: 0644
     force: True
   notify: "Restart elasticsearch"
   become: True
