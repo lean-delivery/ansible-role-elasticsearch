@@ -1,12 +1,21 @@
 ---
 # Install and run elasticsearch
-- name: "Configure system for current OS"
-  include_tasks: "{{ platform }}"
+
+- name: Load a variable file based on the OS type, or a default if not found.
+  include_vars: '{{ platform_vars }}'
   with_first_found:
-    - "system/{{ ansible_os_family }}.yml"
-    - "system/not-supported.yml"
+    - '{{ ansible_os_family }}.yml'
+    - default.yml
   loop_control:
-    loop_var: "platform"
+    loop_var: platform_vars
+
+- name: "Configure system for current OS"
+  include_tasks: '{{ platform_tasks }}'
+  with_first_found:
+    - 'system/{{ ansible_os_family }}.yml'
+    - system/not-supported.yml
+  loop_control:
+    loop_var: platform_tasks
 
 - name: "Installing elasticsearch"
   include_tasks: install-elasticsearch.yml

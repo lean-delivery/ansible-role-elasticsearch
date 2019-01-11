@@ -20,9 +20,6 @@
   include_tasks: add-scripts.yml
   when: elasticsearch_scripts_install
 
-# - name: "Flush handlers"
-#   meta: flush_handlers
-
 - name: "Start elasticsearch"
   service:
     name: elasticsearch

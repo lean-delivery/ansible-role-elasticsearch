@@ -1,7 +1,7 @@
 ---
 - name: "Setting m_lock"
-  set_fact: >-
-    m_lock_enabled={{ es_config['bootstrap.memory_lock'] }}
+  set_fact:
+    m_lock_enabled: "{{ es_config['bootstrap.memory_lock'] }}"
   when: es_config['bootstrap.memory_lock'] is defined
 
 - name: "Copy Configuration File"
@@ -12,7 +12,7 @@
     group: '{{ es_group }}'
     mode: 0644
     force: True
-  notify: "Restart elasticsearch"
+  notify: Restart elasticsearch
   become: True
 
 - name: "Copy Default File for Instance"
