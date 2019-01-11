@@ -8,8 +8,6 @@
   service:
     name: "elasticsearch"
     state: "restarted"
-    enabled: True
-  register: "es_restarted"
   when:
     - es_restart_on_change
     - es_started is not defined
