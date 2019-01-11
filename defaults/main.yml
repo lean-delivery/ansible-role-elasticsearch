@@ -29,3 +29,4 @@ es_default_file_debian: "/etc/default/elasticsearch"
 es_max_open_files: "65536"
 es_max_map_count: "262144"
 elastic_gpg_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+es_config: {}
