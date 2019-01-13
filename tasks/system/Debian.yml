@@ -4,6 +4,8 @@
       package:
         name: apt-transport-https
         state: present
+      register: installed_transport
+      until: installed_transport is succeeded
 
     - name: "Elastic Import latest logstash GPG Key"
       apt_key:
@@ -16,7 +18,3 @@
         state: present
         update_cache: True
   become: True
-
-- name: "Set elasticsearch default file location"
-  set_fact:
-    es_default_file: '{{ es_default_file_debian }}'
