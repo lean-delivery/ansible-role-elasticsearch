@@ -3,8 +3,10 @@
   package:
     name: elasticsearch
     state: present
+  register: installed_package
+  until: installed_package is succeeded
   become: True
-  notify: "Restart elasticsearch"
+  notify: Restart elasticsearch
 
 # - name: "Hint extended documentation for heapsize tuning"
 #   debug:

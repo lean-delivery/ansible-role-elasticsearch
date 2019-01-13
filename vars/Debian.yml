@@ -1,2 +1,2 @@
 ---
-es_sysconfig_file: /etc/default/elasticsearch
+es_default_file: /etc/default/elasticsearch

@@ -2,57 +2,110 @@
 - name: "Setting m_lock"
   set_fact:
     m_lock_enabled: "{{ es_config['bootstrap.memory_lock'] }}"
-  when: es_config['bootstrap.memory_lock'] is defined
+  when:
+    - es_config['bootstrap.memory_lock'] is defined
 
-- name: "Copy Configuration File"
-  template:
-    src: elasticsearch.yml.j2
-    dest: '{{ es_conf_dir }}/elasticsearch.yml'
-    owner: '{{ es_user }}'
-    group: '{{ es_group }}'
-    mode: 0644
-    force: True
-  notify: Restart elasticsearch
+- name: "Check default home path"
+  stat:
+    path: '{{ default["es_home"] }}'
+  register: default_home
+
+- name: "Move home path if redefined"
+  block:
+    - name: "Copy home to new destination"
+      synchronize:
+        src: '{{ default["es_home"] }}/'
+        dest: '{{ es_home }}/'
+        recursive: True
+      delegate_to: '{{ inventory_hostname }}'
+
+    - name: "Remove old destination"
+      file:
+        path: '{{ default["es_home"] }}'
+        state: absent
   become: True
+  when:
+    - es_home != default['es_home']
+    - default_home.stat.exists
 
-- name: "Copy Default File for Instance"
-  template:
-    src: elasticsearch.j2
-    dest: '{{ es_default_file }}'
-    mode: 0644
-    force: True
-  notify: Restart elasticsearch
-  become: True
+- block:
+    - name: "Remove default redefined paths"
+      file:
+        path: '{{ default[es_path_item] }}'
+        state: absent
+      when: lookup('vars', es_path_item) != default[es_path_item]
+      loop:
+        - es_conf_dir
+        - es_log_dir
+        - es_pid_dir
+        - es_data_dirs
+      loop_control:
+        loop_var: es_path_item
 
-- name: "Copy Redhat Init File for Instance"
-  template:
-    src: "init/redhat/elasticsearch.j2"
-    dest: "{{ es_init_script }}"
-    mode: "0755"
-    force: True
-  when: ansible_service_mgr == "upstart"
-  notify: "Restart elasticsearch"
-  become: True
+    - name: "Create paths if absent"
+      file:
+        path: '{{ default[es_path_item] }}'
+        state: directory
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
+      loop:
+        - es_conf_dir
+        - es_log_dir
+        - es_pid_dir
+      loop_control:
+        loop_var: es_path_item
 
-- name: "Copy Systemd File for Instance"
-  template:
-    src: "systemd/elasticsearch.service.j2"
-    dest: "{{ es_sysd_script }}"
-    mode: "0644"
-    force: True
-  when: ansible_service_mgr == "systemd"
-  notify:
-    - "Reload systemd configuration"
-    - "Restart elasticsearch"
-  become: True
+    - name: "Create data paths if absent"
+      file:
+        path: '{{ es_datapath_item }}'
+        state: directory
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
+      loop: '[ "{{ es_data_dirs }}" ]'
+      loop_control:
+        loop_var: es_datapath_item
 
-- name: "Copy jvm.options File for Instance"
-  template:
-    src: "jvm.options.j2"
-    dest: "{{ es_conf_dir }}/jvm.options"
-    owner: "{{ es_user }}"
-    group: "{{ es_group }}"
-    mode: "0644"
-    force: True
-  notify: "Restart elasticsearch"
+    - name: "Copy Configuration Files"
+      template:
+        src: '{{ es_config_item }}.j2'
+        dest: '{{ es_conf_dir }}/{{ es_config_item }}'
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
+        mode: 0644
+        force: True
+      notify: Restart elasticsearch
+      loop:
+        - elasticsearch.yml
+        - jvm.options
+        - log4j2.properties
+      loop_control:
+        loop_var: es_config_item
+
+    - name: "Copy Default File for Instance"
+      template:
+        src: elasticsearch.j2
+        dest: '{{ es_default_file }}'
+        mode: 0644
+        force: True
+      notify: Restart elasticsearch
+
+    - name: "Copy Redhat Init File for Instance"
+      template:
+        src: init/redhat/elasticsearch.j2
+        dest: '{{ es_init_script }}'
+        mode: 0755
+        force: True
+      when: ansible_service_mgr == "upstart"
+      notify: Restart elasticsearch
+
+    - name: "Copy Systemd File for Instance"
+      template:
+        src: systemd/elasticsearch.service.j2
+        dest: '{{ es_sysd_script }}'
+        mode: 0644
+        force: True
+      when: ansible_service_mgr == "systemd"
+      notify:
+        - "Reload systemd configuration"
+        - "Restart elasticsearch"
   become: True
