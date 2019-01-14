@@ -13,6 +13,14 @@
   loop_control:
     loop_var: platform_vars
 
+- name: Load a variable file based on the service manager
+  include_vars: '{{ service_manager }}'
+  with_first_found:
+    - '{{ ansible_service_mgr }}.yml'
+    - systemv.yml
+  loop_control:
+    loop_var: service_manager
+
 - name: "Configure system for current OS"
   include_tasks: '{{ platform_tasks }}'
   with_first_found:

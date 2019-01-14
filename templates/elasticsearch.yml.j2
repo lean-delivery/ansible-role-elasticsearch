@@ -7,10 +7,6 @@
 cluster.name: elasticsearch
 {% endif %}
 
-{# {% if es_config['node.name'] is not defined %}
-node.name: elasticsearch_node1
-{% endif %} #}
-
 {% if es_config['network.host'] is not defined %}
 network.host: {{ elasticsearch_host }}
 {% endif %}
@@ -18,10 +14,6 @@ network.host: {{ elasticsearch_host }}
 #################################### Paths ####################################
 
 # Path to directory containing configuration (this file and logging.yml):
-
-{% if (es_major_version is version('6.0.0', '<')) %}
-path.conf: {{ es_conf_dir }}
-{% endif %}
 
 path.data: {{ es_data_dirs }}
 
