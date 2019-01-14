@@ -1,10 +1,6 @@
 ---
 # Install and run elasticsearch
 
-- name: debug es_conf_dir
-  debug:
-    var: es_conf_dir
-
 - name: Load a variable file based on the OS type, or a default if not found.
   include_vars: '{{ platform_vars }}'
   with_first_found:
