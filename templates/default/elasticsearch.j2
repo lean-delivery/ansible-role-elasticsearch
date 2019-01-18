@@ -13,7 +13,7 @@ CONF_DIR={{ es_conf_dir }}
 ES_PATH_CONF={{ es_conf_dir }}
 
 # Elasticsearch data directory
-DATA_DIR={{ es_data_dirs | to_nice_yaml }}
+DATA_DIR={{ es_data_dirs | array_to_str }}
 
 # Elasticsearch logs directory
 LOG_DIR={{ es_log_dir }}

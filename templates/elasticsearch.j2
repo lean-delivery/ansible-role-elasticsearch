@@ -44,7 +44,7 @@ MAX_MAP_COUNT={{ es_max_map_count }}
 {% endif %}
 
 LOG_DIR="{{ es_log_dir }}"
-DATA_DIR="{{ es_data_dirs | to_nice_yaml }}"
+DATA_DIR="{{ es_data_dirs | array_to_str }}"
 CONF_DIR="{{ es_conf_dir }}"
 ES_PATH_CONF="{{ es_conf_dir }}"
 
