@@ -2,7 +2,7 @@
 - name: "Set elasticsearch version if defined"
   set_fact:
     es_package_name: 'elasticsearch-{{ es_version }}'
-  when: '.x' not in es_version
+  when: .x not in es_version
 
 - name: "Installing Elasticsearch package"
   package:
