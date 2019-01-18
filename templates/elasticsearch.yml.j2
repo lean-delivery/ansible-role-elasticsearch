@@ -15,6 +15,7 @@ network.host: {{ elasticsearch_host }}
 
 # Path to directory containing configuration (this file and logging.yml):
 
-path.data: {{ es_data_dirs }}
+path.data:
+  {{ es_data_dirs | to_nice_yaml }}
 
 path.logs: {{ es_log_dir }}

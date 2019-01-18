@@ -4,6 +4,7 @@ es_group: elasticsearch
 default:
   es_home: /usr/share/elasticsearch
   es_conf_dir: /etc/elasticsearch
-  es_data_dirs: /var/lib/elasticsearch
+  es_data_dirs:
+    - /var/lib/elasticsearch
   es_log_dir: /var/log/elasticsearch
   es_pid_dir: /var/run/elasticsearch
