@@ -9,7 +9,7 @@ RuntimeDirectory=elasticsearch
 Environment=ES_HOME={{ es_home }}
 Environment=CONF_DIR={{ es_conf_dir }}
 Environment=ES_PATH_CONF={{ es_conf_dir }}
-Environment=DATA_DIR={{ es_data_dirs | array_to_str }}
+Environment=DATA_DIR={{ es_data_dirs | join(',') }}
 Environment=LOG_DIR={{ es_log_dir }}
 Environment=PID_DIR={{ es_pid_dir }}
 EnvironmentFile=-{{ es_default_file }}
