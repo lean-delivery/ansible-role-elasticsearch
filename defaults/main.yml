@@ -1,16 +1,16 @@
 ---
 elastic_branch: 6
 m_lock_enabled: False
-es_major_version: "{{ elastic_branch }}.x"
+es_major_version: '{{ elastic_branch }}.x'
 es_version: '{{ es_major_version }}'
 es_max_threads: "{{ 2048 if ( es_major_version is version('6.0.0', '<')) else 8192 }}"
 es_jvm_custom_parameters: ''
 elasticsearch_host: localhost
 elasticsearch_port: 9200
-elasticsearch_xmx: "512m"
-elasticsearch_xms: "512m"
+elasticsearch_xmx: 512m
+elasticsearch_xms: 512m
 elasticsearch_scripts_install: False
-elasticsearch_scripts_path: "/opt/es_scripts"
+elasticsearch_scripts_path: /opt/es_scripts
 elasticsearch_set_settings: True
 es_restart_on_change: True
 es_start_service: True
@@ -21,12 +21,13 @@ es_conf_dir: '{{ default["es_conf_dir"] }}'
 es_data_dirs: '{{ default["es_data_dirs"] }}'
 es_config_log4j2: log4j2.properties.j2
 es_basename: elasticsearch
-es_init_script: "/etc/init.d/elasticsearch"
-es_sysd_script: "/usr/lib/systemd/system/elasticsearch.service"
-es_default_file_redhat: "/etc/sysconfig/elasticsearch"
-es_default_file_debian: "/etc/default/elasticsearch"
-es_max_open_files: "65536"
-es_max_map_count: "262144"
+es_package_name: elasticsearch
+es_init_script: /etc/init.d/elasticsearch
+es_sysd_script: /usr/lib/systemd/system/elasticsearch.service
+es_default_file_redhat: /etc/sysconfig/elasticsearch
+es_default_file_debian: /etc/default/elasticsearch
+es_max_open_files: 65536
+es_max_map_count: 262144
 elastic_gpg_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
 es_config:
   node.name: node1
