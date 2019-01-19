@@ -7,6 +7,7 @@
     - role: ansible-role-elasticsearch
       elasticsearch_host: localhost
       elastic_branch: 6
+      es_version: 6.2.4
       es_data_dirs:
         - /opt/elda
         - /opt/eldb
