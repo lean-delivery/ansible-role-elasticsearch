@@ -1,21 +1,34 @@
 ---
+- name: "Set elasticsearch version if defined"
+  set_fact:
+    es_package_name: '{{ es_package_name }}-{{ es_version }}'
+  when: es_version.find('.x') == -1
+
 - block:
     - name: "Importing latest logstash GPG Key"
       rpm_key:
         key: '{{ elastic_gpg_key }}'
         state: present
 
-
     - name: Add elasticsearch yum repository
       yum_repository:
         name: elasticsearch
         description: Elasticsearch repository
-        file: elasticsearch
-        baseurl: 'https://artifacts.elastic.co/packages/{{ es_major_version }}/yum'
+        file: '{{ es_repo_file }}'
+        baseurl: '{{ es_yum_url }}'
         gpgcheck: True
         gpgkey: '{{ elastic_gpg_key }}'
         enabled: True
         state: present
+
+    - name: "Redhat - Installing Elasticsearch package"
+      yum:
+        name: '{{ es_package_name }}'
+        state: present
+        update_cache: yes
+      register: installed_package
+      until: installed_package is succeeded
+      notify: Restart elasticsearch
   become: True
 
 - name: "Checking selinux support"

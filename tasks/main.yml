@@ -17,7 +17,13 @@
   loop_control:
     loop_var: service_manager
 
-- name: "Configure system for current OS"
+- name: "Set oss package variables if oss installation selected"
+  set_fact:
+    es_package_name: elasticsearch-oss
+    es_repo_name: 'oss-{{ es_major_version }}'
+  when: es_use_oss_version | bool
+
+- name: "Configure and install packages for current OS"
   include_tasks: '{{ platform_tasks }}'
   with_first_found:
     - 'system/{{ ansible_os_family }}.yml'
@@ -25,5 +31,17 @@
   loop_control:
     loop_var: platform_tasks
 
-- name: "Installing elasticsearch"
-  include_tasks: install-elasticsearch.yml
+- name: "Correcting elasticsearch default settings"
+  include_tasks: es-settings.yml
+  when: elasticsearch_set_settings
+
+- name: "Installing elasticsearch scripts"
+  include_tasks: add-scripts.yml
+  when: elasticsearch_scripts_install
+
+- name: "Start elasticsearch"
+  service:
+    name: elasticsearch
+    state: started
+    enabled: True
+  become: True

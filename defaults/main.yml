@@ -28,6 +28,11 @@ es_default_file_redhat: /etc/sysconfig/elasticsearch
 es_default_file_debian: /etc/default/elasticsearch
 es_max_open_files: 65536
 es_max_map_count: 262144
-elastic_gpg_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+es_repo_name: '{{ es_major_version }}'
+es_apt_url: 'deb https://artifacts.elastic.co/packages/{{ es_repo_name }}/apt stable main'
+es_yum_url: 'https://artifacts.elastic.co/packages/{{ es_repo_name }}/yum'
+es_repo_file: 'elastic-{{ es_major_version }}'
+elastic_gpg_key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+es_use_oss_version: False
 es_config:
   node.name: node1
