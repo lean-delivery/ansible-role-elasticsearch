@@ -8,6 +8,7 @@
       elasticsearch_host: localhost
       elastic_branch: 6
       es_version: 6.4.3
+      es_use_oss_version: True
       es_data_dirs:
         - /opt/elda
         - /opt/eldb
