@@ -37,14 +37,14 @@ docker-centos7:
   tags:
     - aws
 
-.docker-ubuntu1804:
+docker-ubuntu1804:
   stage: deployment test
   script:
     - molecule test -s docker-ubuntu1804
   tags:
     - aws
 
-.cloud-epc-delegated:
+cloud-epc-delegated:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
