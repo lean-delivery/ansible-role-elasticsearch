@@ -21,14 +21,14 @@ es_conf_dir: '{{ default["es_conf_dir"] }}'
 es_data_dirs: '{{ default["es_data_dirs"] }}'
 es_config_log4j2: log4j2.properties.j2
 es_basename: elasticsearch
-es_package_name: elasticsearch
+es_package_name: '{{ es_use_oss_version | ternary("elasticsearch-oss", "elasticsearch") }}'
 es_init_script: /etc/init.d/elasticsearch
 es_sysd_script: /usr/lib/systemd/system/elasticsearch.service
 es_default_file_redhat: /etc/sysconfig/elasticsearch
 es_default_file_debian: /etc/default/elasticsearch
 es_max_open_files: 65536
 es_max_map_count: 262144
-es_repo_name: '{{ es_major_version }}'
+es_repo_name: '{{ es_use_oss_version | ternary("oss-" + es_major_version, es_major_version) }}'
 es_apt_url: 'deb https://artifacts.elastic.co/packages/{{ es_repo_name }}/apt stable main'
 es_yum_url: 'https://artifacts.elastic.co/packages/{{ es_repo_name }}/yum'
 es_repo_file: 'elastic-{{ es_major_version }}'
