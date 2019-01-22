@@ -6,8 +6,8 @@
 
 - name: "Restart elasticsearch"
   service:
-    name: "elasticsearch"
-    state: "restarted"
+    name: elasticsearch
+    state: restarted
   when:
     - es_restart_on_change
     - es_started is not defined

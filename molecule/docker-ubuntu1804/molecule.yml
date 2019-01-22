@@ -10,26 +10,28 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-elasticsearch5
-    image: leandelivery/docker-systemd:centos7
+  - name: test-docker-ubuntu1804-elastic
+    image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: True
+    security_opts:
+      - seccomp=unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+      - /run
+    capabilities:
+      - SYS_ADMIN
     env:
       TERM: xterm
     groups:
-      - ansible_role_elasticsearch_v5_centos
-  - name: test-docker-centos7-elasticsearch6
-    image: leandelivery/docker-systemd:centos7
-    privileged: True
-    env:
-      TERM: xterm
-    groups:
-      - ansible_role_elasticsearch_v6_centos
+      - debian_family
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
 scenario:
-  name: docker-centos-elasticsearch5-6
+  name: docker-ubuntu1804
 verifier:
   name: testinfra
   options:

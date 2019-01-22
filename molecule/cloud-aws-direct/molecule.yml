@@ -50,7 +50,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: aws-direct-elasticsearch-6
+  name: cloud-aws-direct
 verifier:
   name: testinfra
   options:
