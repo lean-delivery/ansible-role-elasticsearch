@@ -16,6 +16,8 @@
       apt_key:
         url: '{{ elastic_gpg_key }}'
         state: present
+      register: install_key
+      until: install_key is succeeded
 
     - name: "Add elasticsearch repo"
       apt_repository:
@@ -25,7 +27,6 @@
         filename: '{{ es_repo_file }}.list'
 
     - name: "Debian - Installing Elasticsearch package"
-      become: yes
       apt:
         name: '{{ es_package_name }}'
         state: present

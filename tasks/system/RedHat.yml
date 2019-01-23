@@ -9,6 +9,8 @@
       rpm_key:
         key: '{{ elastic_gpg_key }}'
         state: present
+      register: installed_key
+      until: installed_key is succeeded
 
     - name: Add elasticsearch yum repository
       yum_repository:
@@ -25,7 +27,7 @@
       yum:
         name: '{{ es_package_name }}'
         state: present
-        update_cache: yes
+        update_cache: True
       register: installed_package
       until: installed_package is succeeded
       notify: Restart elasticsearch
