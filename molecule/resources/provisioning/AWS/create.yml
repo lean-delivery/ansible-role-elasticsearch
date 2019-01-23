@@ -53,7 +53,7 @@
         instance_type: "{{ item.instance_type }}"
         vpc_subnet_id: "{{ item.vpc_subnet_id }}"
         group:
-          # - "{{ security_group_name }}"
+          - molecule
           - default
           - epam-by-ru
         instance_tags:
