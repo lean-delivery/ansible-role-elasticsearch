@@ -32,8 +32,6 @@ if [ -f /etc/rc.d/init.d/functions ]; then
 fi
 
 # Sets the default values for elasticsearch variables used in this script
-ES_USER="{{ es_user }}"
-ES_GROUP="{{ es_group }}"
 ES_HOME="{{ es_home }}"
 {% if es_max_open_files is defined %}
 MAX_OPEN_FILES={{ es_max_open_files }}
@@ -56,8 +54,10 @@ if [ -f "$ES_ENV_FILE" ]; then
     . "$ES_ENV_FILE"
 fi
 
-if [ "$ES_USER" != "elasticsearch" ] || [ "$ES_GROUP" != "elasticsearch" ]; then
-    echo "WARNING: ES_USER and ES_GROUP are deprecated and will be removed in the next major version of Elasticsearch, got: [$ES_USER:$ES_GROUP]"
+# ES_USER and ES_GROUP settings were removed
+if [ ! -z "$ES_USER" ] || [ ! -z "$ES_GROUP" ]; then
+    echo "ES_USER and ES_GROUP settings are no longer supported. To run as a custom user/group use the archive distribution of Elasticsearch."
+    exit 1
 fi
 
 # CONF_FILE setting was removed
@@ -88,11 +88,6 @@ if test -n "$ES_GC_OPTS"; then export ES_GC_OPTS; fi
 if test -n "$ES_GC_LOG_FILE"; then export ES_GC_LOG_FILE; fi
 
 lockfile=/var/lock/subsys/$prog
-
-# backwards compatibility for old config sysconfig files, pre 0.90.1
-if [ -n $USER ] && [ -z $ES_USER ] ; then
-   ES_USER=$USER
-fi
 
 if [ ! -x "$exec" ]; then
     echo "The elasticsearch startup script does not exists or it is not executable, tried: $exec"
@@ -140,11 +135,7 @@ start() {
     cd $ES_HOME
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
-{% if (es_major_version is version_compare('6.0.0', '<')) %}
-    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d -Edefault.path.logs=$LOG_DIR -Edefault.path.data=$DATA_DIR -Edefault.path.conf=$CONF_DIR
-{% else %}
-    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d
-{% endif %}
+    daemon --user elasticsearch --pidfile $pidfile $exec -p $pidfile -d
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile
