@@ -11,8 +11,6 @@ cluster.name: elasticsearch
 network.host: {{ elasticsearch_host }}
 {% endif %}
 
-#discovery.zen.ping.unicast.hosts: ["{{ groups['cluster'] | map ('extract', hostvars, ['ansible_hostname']) | join (',') }}"]
-
 #################################### Paths ####################################
 
 # Path to directory containing configuration (this file and logging.yml):
