@@ -23,34 +23,34 @@ Ansible lint:
   tags:
     - aws
 
-Docker {{ cookiecutter.role_name }}:
+Docker elasticsearch:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - aws
 
-AWS {{ cookiecutter.role_name }}:
+AWS_elasticsearch:
   variables:
-    AWS_REGION: {{ cookiecutter.aws_region }}
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
     - molecule test -s cloud-aws-direct
   tags:
     - aws
 
-# AWS Windows {{ cookiecutter.role_name }}:
+# AWS Windows_elasticsearch:
 #   variables:
-#     AWS_REGION: {{ cookiecutter.aws_region }}
+#     AWS_REGION: us-east-1
 #   stage: deployment test
 #   script:
 #     - molecule test -s cloud-aws-windows
 #   tags:
 #     - aws
 
-EPC {{ cookiecutter.role_name }}:
+EPC_elasticsearch:
   variables:
-    EPC_REGION: {{ cookiecutter.epc_region }}
+    EPC_REGION: EPAM-BY2
   stage: deployment test
   script:
     - molecule test -s cloud-epc-delegated
