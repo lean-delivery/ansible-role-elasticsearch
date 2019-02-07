@@ -17,7 +17,6 @@ es_pid_dir: '{{ default["es_pid_dir"] }}'
 es_log_dir: '{{ default["es_log_dir"] }}'
 es_conf_dir: '{{ default["es_conf_dir"] }}'
 es_data_dirs: '{{ default["es_data_dirs"] }}'
-es_config_log4j2: log4j2.properties.j2
 es_basename: elasticsearch
 es_max_open_files: 65536
 es_max_map_count: 262144

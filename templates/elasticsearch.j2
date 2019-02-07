@@ -32,6 +32,8 @@ if [ -f /etc/rc.d/init.d/functions ]; then
 fi
 
 # Sets the default values for elasticsearch variables used in this script
+ES_USER="{{ es_user }}"
+ES_GROUP="{{ es_group }}"
 ES_HOME="{{ es_home }}"
 {% if es_max_open_files is defined %}
 MAX_OPEN_FILES={{ es_max_open_files }}
@@ -54,6 +56,12 @@ if [ -f "$ES_ENV_FILE" ]; then
     . "$ES_ENV_FILE"
 fi
 
+# ES_USER and ES_GROUP settings were removed
+if [ ! -z "$ES_USER" ] || [ ! -z "$ES_GROUP" ]; then
+# ES_USER and ES_GROUP settings were removed
+if [ ! -z "$ES_USER" ] || [ ! -z "$ES_GROUP" ]; then
+# ES_USER and ES_GROUP settings were removed
+if [ ! -z "$ES_USER" ] || [ ! -z "$ES_GROUP" ]; then
 # ES_USER and ES_GROUP settings were removed
 if [ ! -z "$ES_USER" ] || [ ! -z "$ES_GROUP" ]; then
     echo "ES_USER and ES_GROUP settings are no longer supported. To run as a custom user/group use the archive distribution of Elasticsearch."
@@ -89,23 +97,8 @@ if test -n "$ES_GC_LOG_FILE"; then export ES_GC_LOG_FILE; fi
 
 lockfile=/var/lock/subsys/$prog
 
-if [ ! -x "$exec" ]; then
-    echo "The elasticsearch startup script does not exists or it is not executable, tried: $exec"
-    exit 1
-fi
-
-checkJava() {
-    if [ -x "$JAVA_HOME/bin/java" ]; then
-        JAVA="$JAVA_HOME/bin/java"
-    else
+    fi
         JAVA=`which java`
-    fi
-
-    if [ ! -x "$JAVA" ]; then
-        echo "Could not find any executable java binary. Please install java in your PATH or set JAVA_HOME"
-        exit 1
-    fi
-}
 
 start() {
     checkJava
@@ -135,34 +128,26 @@ start() {
     cd $ES_HOME
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
-    daemon --user elasticsearch --pidfile $pidfile $exec -p $pidfile -d
+    {% if (es_major_version is version_compare('6.0.0', '<')) %}
+    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d -Edefault.path.logs=$LOG_DIR -Edefault.path.data=$DATA_DIR -Edefault.path.conf=$CONF_DIR
+{% else %}
+    daemon --user $ES_USER --pidfile $pidfile $exec -p $pidfile -d
+{% endif %}
     retval=$?
     echo
     [ $retval -eq 0 ] && touch $lockfile
     return $retval
-}
-
-stop() {
-    echo -n $"Stopping $prog: "
-    # stop it here, often "killproc $prog"
+    daemon --user elasticsearch --pidfile $pidfile $exec -p $pidfile -d
     killproc -p $pidfile -d 86400 $prog
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile
-    return $retval
-}
-
-restart() {
-    stop
+    daemon --user elasticsearch --pidfile $pidfile $exec -p $pidfile -d
     start
 }
 
 reload() {
-    restart
-}
-
-force_reload() {
-    restart
+    daemon --user elasticsearch --pidfile $pidfile $exec -p $pidfile -d
 }
 
 rh_status() {
