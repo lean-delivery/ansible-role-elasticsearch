@@ -12,21 +12,21 @@ lint:
 platforms:
   - name: test-epc-centos7-elastic
     image: CentOS7_64-bit
-    shape: large
+    shape: medium
     region: EPAM-BY2
     wait_timeout: 3600
     groups:
       - rhel_family
   - name: test-epc-centos6-elastic
     image: CentOS6_64-bit
-    shape: large
+    shape: medium
     region: EPAM-BY2
     wait_timeout: 3600
     groups:
       - rhel_family
   - name: test-epc-ubuntu1804-elastic
     image: Ubuntu18.04_64-bit
-    shape: large
+    shape: medium
     region: EPAM-BY2
     wait_timeout: 3600
     groups:

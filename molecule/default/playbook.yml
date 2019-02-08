@@ -1,5 +1,10 @@
 ---
 - name: Converge
   hosts: all
+  gather_facts: True
   roles:
+    - role: lean_delivery.java
     - role: ansible-role-elasticsearch
+  vars:
+    elasticsearch_host: localhost
+    elastic_branch: 6

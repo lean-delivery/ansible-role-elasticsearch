@@ -26,7 +26,7 @@ Ansible lint:
 Docker ansible-role-elasticsearch:
   stage: deployment test
   script:
-    - molecule test -s default
+    - molecule test -s docker-centos7
   tags:
     - aws
 
