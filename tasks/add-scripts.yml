@@ -1,39 +1,39 @@
 ---
-- name: "Make sure that script dir exists"
+- name: Make sure that script dir exists
   file:
-    mode: "0755"
-    owner: "root"
-    group: "root"
-    path: "{{ elasticsearch_scripts_path }}"
-    state: "directory"
+    mode: 0755
+    owner: root
+    group: root
+    path: '{{ elasticsearch_scripts_path }}'
+    state: directory
   become: True
 
 # Install script which allow show and delete all indices
-- name: "Install script file deleting all indices"
+- name: Install script file deleting all indices
   template:
-    src: "show-or-delete-all-indices-from-elastic.sh.j2"
-    dest: "{{ elasticsearch_scripts_path }}/show-or-delete-all-indices-from-elastic.sh"
-    owner: "root"
-    group: "root"
-    mode: "0755"
+    src: show-or-delete-all-indices-from-elastic.sh.j2
+    dest: '{{ elasticsearch_scripts_path }}/show-or-delete-all-indices-from-elastic.sh'
+    owner: root
+    group: root
+    mode: 0755
   become: True
 
 # Install script which allow delete all indices matching with pattern
-- name: "Install script file deleting indices by pattern"
+- name: Install script file deleting indices by pattern
   template:
-    src: "delete-indices-by-pattern-from-elastic.sh.j2"
-    dest: "{{ elasticsearch_scripts_path }}/delete-indices-by-pattern-from-elastic.sh"
-    owner: "root"
-    group: "root"
-    mode: "0755"
+    src: delete-indices-by-pattern-from-elastic.sh.j2
+    dest: '{{ elasticsearch_scripts_path }}/delete-indices-by-pattern-from-elastic.sh'
+    owner: root
+    group: root
+    mode: 0755
   become: True
 
 # Install script which allow delete all indices older than N days
-- name: "Install script file deleting indices older than specified"
+- name: Install script file deleting indices older than specified
   template:
-    src: "delete-indices-older-Ndays-from-elastic.sh.j2"
-    dest: "{{ elasticsearch_scripts_path }}/delete-indices-older-Ndays-from-elastic.sh"
-    owner: "root"
-    group: "root"
-    mode: "0755"
+    src: delete-indices-older-Ndays-from-elastic.sh.j2
+    dest: '{{ elasticsearch_scripts_path }}/delete-indices-older-Ndays-from-elastic.sh'
+    owner: root
+    group: root
+    mode: 0755
   become: True

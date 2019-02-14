@@ -1,32 +1,32 @@
 ---
-- name: "Set elasticsearch version if defined"
+- name: Set elasticsearch version if defined
   set_fact:
     es_package_name: '{{ es_package_name }}={{ es_version }}'
   when: es_version.find('.x') == -1
 
 - block:
-    - name: "Install apt-transport-https"
+    - name: Install apt-transport-https
       package:
         name: apt-transport-https
         state: present
       register: installed_transport
       until: installed_transport is succeeded
 
-    - name: "Elastic Import latest logstash GPG Key"
+    - name: Elastic Import latest logstash GPG Key
       apt_key:
         url: '{{ elastic_gpg_key }}'
         state: present
       register: install_key
       until: install_key is succeeded
 
-    - name: "Add elasticsearch repo"
+    - name: Add elasticsearch repo
       apt_repository:
         repo: '{{ es_apt_url }}'
         state: present
         update_cache: True
         filename: '{{ es_repo_file }}.list'
 
-    - name: "Debian - Installing Elasticsearch package"
+    - name: Debian - Installing Elasticsearch package
       apt:
         name: '{{ es_package_name }}'
         state: present
