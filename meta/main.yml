@@ -17,7 +17,12 @@ galaxy_info:
         - 7
     - name: Ubuntu
       versions:
-        - 18.04
+        - xenial
+        - bionic
+    - name: Debian
+      versions:
+        - stretch
+        - jessie
 
   galaxy_tags:
     - elasticsearch

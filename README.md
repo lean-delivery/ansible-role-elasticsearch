@@ -3,6 +3,9 @@ elasticsearch role
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-elasticsearch/master/LICENSE)
 [![Build Status](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch)
 [![Build Status](https://gitlab.com/lean-delivery/ansible-role-elasticsearch/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-elasticsearch)
+[![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.elasticsearch-blue.svg)](https://galaxy.ansible.com/lean_delivery/elasticsearch)
+![Ansible](https://img.shields.io/ansible/role/d/30177.svg)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F30177%2F&query=$.min_ansible_version)
 
 ## Summary
 
@@ -20,7 +23,11 @@ Requirements
      - 6
      - 7
    - Ubuntu
+     - 16.04
      - 18.04
+   - Debian
+     - 8
+     - 9
 
 SELinux
 ------------
