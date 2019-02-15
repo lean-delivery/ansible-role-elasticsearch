@@ -126,8 +126,8 @@ Example Playbook
 - name: Install Elasticsearch 6.x
   hosts: localhost
   roles:
-    - role: ansible-role-java
-    - role: ansible-role-elasticsearch
+    - role: lean_delivery.java
+    - role: lean_delivery.elasticsearch
   vars:
     elastic_branch: 6
 ```
