@@ -10,30 +10,36 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-elasticsearch5
+  - name: test-docker-centos7-ansible-role-elasticsearch
     image: leandelivery/docker-systemd:centos7
     privileged: True
-    env:
-      TERM: xterm
     groups:
-      - ansible_role_elasticsearch_v5_centos
-  - name: test-docker-centos7-elasticsearch6
-    image: leandelivery/docker-systemd:centos7
+      - rhel_family
+  - name: test-docker-ubuntu1804-ansible-role-elasticsearch
+    image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: True
-    env:
-      TERM: xterm
+    security_opts:
+      - seccomp=unconfined
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /tmp
+      - /run
+    capabilities:
+      - SYS_ADMIN
     groups:
-      - ansible_role_elasticsearch_v6_centos
+      - debian_family
 provisioner:
   name: ansible
+  log: False
   lint:
     name: ansible-lint
 scenario:
-  name: docker-centos-elasticsearch5-6
+  name: default
 verifier:
   name: testinfra
   options:
-    verbose: True
+    verbose: true
   directory: ../resources/tests/
   lint:
     name: flake8

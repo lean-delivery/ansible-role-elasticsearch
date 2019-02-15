@@ -1,23 +1,37 @@
 ---
-- name: "Install apt-transport-https"
-  package:
-    name: "apt-transport-https"
-    state: "present"
-  become: True
-
-- name: "Elastic Import latest logstash GPG Key"
-  apt_key:
-    url: "{{ elastic_gpg_key }}"
-    state: "present"
-  become: True
-
-- name: "Add elasticsearch repo"
-  apt_repository:
-    repo: "deb https://artifacts.elastic.co/packages/{{ elastic_branch }}.x/apt stable main"
-    state: "present"
-    update_cache: True
-  become: True
-
-- name: "Set elasticsearch default file location"
+- name: Set elasticsearch version if defined
   set_fact:
-    es_default_file: "{{ es_default_file_debian }}"
+    es_package_name: '{{ es_package_name }}={{ es_version }}'
+  when: es_version.find('.x') == -1
+
+- block:
+    - name: Install apt-transport-https
+      package:
+        name: apt-transport-https
+        state: present
+      register: installed_transport
+      until: installed_transport is succeeded
+
+    - name: Elastic Import latest logstash GPG Key
+      apt_key:
+        url: '{{ elastic_gpg_key }}'
+        state: present
+      register: install_key
+      until: install_key is succeeded
+
+    - name: Add elasticsearch repo
+      apt_repository:
+        repo: '{{ es_apt_url }}'
+        state: present
+        update_cache: True
+        filename: '{{ es_repo_file }}.list'
+
+    - name: Debian - Installing Elasticsearch package
+      apt:
+        name: '{{ es_package_name }}'
+        state: present
+        force: False
+      register: installed_package
+      until: installed_package is succeeded
+      notify: Restart elasticsearch
+  become: True

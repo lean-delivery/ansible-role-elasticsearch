@@ -1,60 +1,49 @@
 ---
+# Run all tests
 stages:
+  - lint
   - deployment test
 
 before_script:
   - ansible --version
+  - ansible-lint --version
   - molecule --version
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
 
-docker-centos-elasticsearch-5.x-and-6.x:
+Ansible lint:
+  stage: lint
+  before_script:
+    - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
+  script:
+    - ansible-lint . -c .ansible-lint
+  after_script:
+    - rm -rf ~/ansible-lint-rules
+  tags:
+    - aws
+
+Docker ansible-role-elasticsearch:
   stage: deployment test
   script:
-    - molecule test -s docker-centos-elasticsearch5-6
+    - molecule test -s default
   tags:
-    - docker
+    - aws
 
-docker-ubuntu1804-elasticsearch-5.x-and-6.x:
+AWS ansible-role-elasticsearch:
+  variables:
+    AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s docker-ubuntu1804-elasticsearch5-6
+    - molecule test -s cloud-aws-direct
   tags:
-    - docker
+    - aws
 
-epc-elasticsearch-5.x:
+EPC ansible-role-elasticsearch:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
   script:
-    - molecule test -s epc-elasticsearch5
-  tags:
-    - delegated
-
-epc-elasticsearch-6.x:
-  variables:
-    EPC_REGION: EPAM-BY2
-  stage: deployment test
-  script:
-    - molecule test -s epc-elasticsearch6
-  tags:
-    - delegated
-
-aws-elasticsearch-5.x:
-  variables:
-    EPC_REGION: AWS-EUCENTRAL
-  stage: deployment test
-  script:
-    - molecule test -s aws-elasticsearch5
-  tags:
-    - delegated
-
-aws-elasticsearch-6.x:
-  variables:
-    EPC_REGION: AWS-EUCENTRAL
-  stage: deployment test
-  script:
-    - molecule test -s aws-elasticsearch6
+    - molecule test -s cloud-epc-delegated
   tags:
     - delegated

@@ -9,7 +9,7 @@ RuntimeDirectory=elasticsearch
 Environment=ES_HOME={{ es_home }}
 Environment=CONF_DIR={{ es_conf_dir }}
 Environment=ES_PATH_CONF={{ es_conf_dir }}
-Environment=DATA_DIR={{ es_data_dirs }}
+Environment=DATA_DIR={{ es_data_dirs | join(',') }}
 Environment=LOG_DIR={{ es_log_dir }}
 Environment=PID_DIR={{ es_pid_dir }}
 EnvironmentFile=-{{ es_default_file }}
@@ -19,17 +19,8 @@ WorkingDirectory={{ es_home }}
 User={{ es_user }}
 Group={{ es_group }}
 
-{% if (es_major_version is version_compare('6.0.0', '<')) %}
-ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec
-{% endif %}
-
 ExecStart={{ es_home }}/bin/elasticsearch \
                                     -p ${PID_DIR}/elasticsearch.pid \
-{% if (es_major_version is version_compare('6.0.0', '<')) %}
-                                    -Edefault.path.logs=${LOG_DIR} \
-                                    -Edefault.path.data=${DATA_DIR} \
-                                    -Edefault.path.conf=${CONF_DIR} \
-{% endif %}
                                     --quiet
 
 
@@ -56,7 +47,7 @@ LimitMEMLOCK=infinity
 
 # Specifies the maximum number of threads that can be started.  Elasticsearch requires a
 # minimum of 2048.
-LimitNPROC={{ es_max_threads }}
+LimitNPROC=4096
 
 # Disable timeout logic and wait until process is stopped
 TimeoutStopSec=0
