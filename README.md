@@ -3,6 +3,9 @@ elasticsearch role
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-elasticsearch/master/LICENSE)
 [![Build Status](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch)
 [![Build Status](https://gitlab.com/lean-delivery/ansible-role-elasticsearch/badges/master/build.svg)](https://gitlab.com/lean-delivery/ansible-role-elasticsearch)
+[![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.elasticsearch-blue.svg)](https://galaxy.ansible.com/lean_delivery/elasticsearch)
+![Ansible](https://img.shields.io/ansible/role/d/30177.svg)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F30177%2F&query=$.min_ansible_version)
 
 ## Summary
 
@@ -20,7 +23,11 @@ Requirements
      - 6
      - 7
    - Ubuntu
+     - 16.04
      - 18.04
+   - Debian
+     - 8
+     - 9
 
 SELinux
 ------------
@@ -119,13 +126,28 @@ Example Playbook
 - name: Install Elasticsearch 6.x
   hosts: localhost
   roles:
-    - role: ansible-role-java
-    - role: ansible-role-elasticsearch
+    - role: lean_delivery.java
+    - role: lean_delivery.elasticsearch
   vars:
     elastic_branch: 6
 ```
 
-### Installing multi node solution with elasticsearch 6.x version:
+### Installing multi node solution with elasticsearch 6.x version and kibana:
+Inventory file:
+```yaml
+[controller]
+node1
+
+[dm]
+node2
+node3
+node4
+
+[cluster:children]
+controller
+dm
+```
+Playbook:
 ```yaml
 - name: Install Elasticsearch 6.x and Kibana. Configure node as controller
   hosts: controller
@@ -135,6 +157,7 @@ Example Playbook
     - role: lean_delivery.kibana
   vars:
     elastic_branch: 6
+    kibana_host: "{{ ansible_host }}"
     es_config:
       node.master: false
       node.data: false
@@ -142,7 +165,7 @@ Example Playbook
       node.name: "{{ ansible_host }}"
       cluster.name: Cluster_Name
       network.host: [_local_,_site_]
-      discovery.zen.ping.unicast.hosts: ["node1.example.com","node2.example.com","node3.example.com"]
+      discovery.zen.ping.unicast.hosts: '{{ groups['cluster'] | map ('extract', hostvars, ['ansible_hostname']) |  join (',') }}'
       discovery.zen.minimum_master_nodes: 2
 
 - name: Install Elasticsearch 6.x and configure nodes as data & master
@@ -158,7 +181,7 @@ Example Playbook
       network.host: [_local_,_site_]
       node.master: true
       node.data: true
-      discovery.zen.ping.unicast.hosts: ["node1.example.com","node2.example.com","node3.example.com"]
+      discovery.zen.ping.unicast.hosts: '{{ groups['cluster'] | map ('extract', hostvars, ['ansible_hostname']) |  join (',') }}'
       discovery.zen.minimum_master_nodes: 2
 ```
 
