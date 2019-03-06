@@ -1,14 +1,13 @@
 ---
-- name: "Reload systemd configuration"
+- name: Reload systemd configuration
   systemd:
     daemon_reload: True
   become: True
 
-- name: "Restart elasticsearch"
+- name: Restart elasticsearch
   service:
     name: elasticsearch
     state: restarted
   when:
     - es_restart_on_change
-    - es_started is not defined
   become: True

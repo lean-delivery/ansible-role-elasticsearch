@@ -1,6 +1,10 @@
 ---
 - block:
+<<<<<<< HEAD
     - name: "Install ansible selinux configure libraries"
+=======
+    - name: Install ansible selinux configure libraries
+>>>>>>> master
       package:
         name:
           - libselinux-python
@@ -10,7 +14,11 @@
       register: installed_package
       until: installed_package is succeeded
 
+<<<<<<< HEAD
     - name: "Enable connections to HTTP port"
+=======
+    - name: Enable connections to HTTP port
+>>>>>>> master
       seport:
         ports: '{{ elasticsearch_port }}'
         proto: tcp
@@ -18,5 +26,10 @@
         state: present
   become: True
   when:
+<<<<<<< HEAD
     - ansible_selinux.status == "enabled"
     - ansible_selinux.mode != "disabled"
+=======
+    - ansible_selinux.status == 'enabled'
+    - ansible_selinux.mode != 'disabled'
+>>>>>>> master

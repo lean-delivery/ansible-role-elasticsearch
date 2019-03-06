@@ -28,6 +28,9 @@ rules:
     max: 150
     level: warning
   new-lines: disable
+<<<<<<< HEAD
 
 ignore: |
   molecule
+=======
+>>>>>>> master

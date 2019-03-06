@@ -88,6 +88,10 @@
         port: '{{ ssh_port }}'
         host: '{{ item.address }}'
         search_regex: SSH
+<<<<<<< HEAD
         delay: 10
+=======
+        delay: 2
+>>>>>>> master
         timeout: 320
       loop: "{{ lookup('file', molecule_instance_config) | molecule_from_yaml }}"
