@@ -1,19 +1,11 @@
 ---
-<<<<<<< HEAD
-- name: "Set elasticsearch version if defined"
-=======
 - name: Set elasticsearch version if defined
->>>>>>> master
   set_fact:
     es_package_name: '{{ es_package_name }}-{{ es_version }}'
   when: es_version.find('.x') == -1
 
 - block:
-<<<<<<< HEAD
-    - name: "Importing latest logstash GPG Key"
-=======
     - name: Importing latest logstash GPG Key
->>>>>>> master
       rpm_key:
         key: '{{ elastic_gpg_key }}'
         state: present
@@ -31,11 +23,7 @@
         enabled: True
         state: present
 
-<<<<<<< HEAD
-    - name: "Redhat - Installing Elasticsearch package"
-=======
     - name: Redhat - Installing Elasticsearch package
->>>>>>> master
       yum:
         name: '{{ es_package_name }}'
         state: present
@@ -45,9 +33,5 @@
       notify: Restart elasticsearch
   become: True
 
-<<<<<<< HEAD
-- name: "Checking selinux support"
-=======
 - name: Checking selinux support
->>>>>>> master
   include_tasks: selinux-support.yml
