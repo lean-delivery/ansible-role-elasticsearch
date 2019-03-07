@@ -1,7 +1,0 @@
----
-es_service_script: elasticsearch.service
-es_service_path: /usr/lib/systemd/system
-es_service_script_mode: 0644
-es_service_handlers:
-  - Reload systemd configuration
-  - Restart elasticsearch
