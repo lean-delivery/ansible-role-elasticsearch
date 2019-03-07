@@ -5,9 +5,11 @@ stages:
   - deployment test
 
 before_script:
+  - rm -rf molecule/resources/provisioning
   - ansible --version
   - ansible-lint --version
   - molecule --version
+  - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -23,14 +25,14 @@ Ansible lint:
   tags:
     - aws
 
-Docker ansible-role-elasticsearch:
+Docker elasticsearch:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - aws
 
-AWS ansible-role-elasticsearch:
+AWS elasticsearch:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -39,7 +41,16 @@ AWS ansible-role-elasticsearch:
   tags:
     - aws
 
-EPC ansible-role-elasticsearch:
+# AWS Windows elasticsearch:
+#   variables:
+#     AWS_REGION: us-east-1
+#   stage: deployment test
+#   script:
+#     - molecule test -s cloud-aws-windows
+#   tags:
+#     - aws
+
+EPC elasticsearch:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
