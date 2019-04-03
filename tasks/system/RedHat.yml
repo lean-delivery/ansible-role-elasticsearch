@@ -34,4 +34,4 @@
   become: True
 
 - name: Checking selinux support
-  include_tasks: selinux-support.yml
+  include_tasks: ../selinux-support.yml

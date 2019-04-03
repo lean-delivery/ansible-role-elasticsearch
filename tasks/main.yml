@@ -25,6 +25,18 @@
   loop_control:
     loop_var: platform_tasks
 
+- name: Get the rpm or apt package facts
+  package_facts:
+    manager: "auto"
+
+- name: Set elasticsearch version if not defined
+  set_fact:
+    es_version: "{{ ansible_facts.packages.elasticsearch[0].version }}"
+  when: es_version.find('.x') == 1
+
+- debug:
+    msg: "elasticsearch version is {{ es_version }}"
+
 - name: Correcting elasticsearch default settings
   include_tasks: es-settings.yml
   when: elasticsearch_set_settings
