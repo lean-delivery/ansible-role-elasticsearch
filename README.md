@@ -16,7 +16,7 @@ This Ansible role has the following features:
 Requirements
 ------------
 
- - This role requires java to be installed. Oracle-java role can be used but open-jdk is also an option. 
+ - This role requires java to be installed. Oracle-java role can be used but open-jdk is also an option.
  - Version of the ansible for installation: 2.5
  - **Supported OS**:  
    - EL
@@ -26,7 +26,6 @@ Requirements
      - 16.04
      - 18.04
    - Debian
-     - 8
      - 9
 
 SELinux
@@ -52,13 +51,13 @@ Specifies the maximum memory allocation pool for a JVM. Default value `512m`.
 - `elasticsearch_xms`
 Specifies the initial memory allocation pool for a JVM. Default value `512m`.
 - `es_jvm_custom_parameters`
-Custom JVM parameters can be added as a list. These values will be added to jvm.options configuration file. 
+Custom JVM parameters can be added as a list. These values will be added to jvm.options configuration file.
 - `elasticsearch_scripts_install`
 Installs custom scripts to work with indices. Default to `false`.
 - `elasticsearch_scripts_path`
 Path to custom scripts directory. Default is `/opt/es_scripts`.
 - `elasticsearch_set_settings`
-Define if custom settings should be deployed or default setting is used. Default to `true`. 
+Define if custom settings should be deployed or default setting is used. Default to `true`.
 - `es_restart_on_change`
 Configure service restart on configuration upgrade. Default is set to `true`.
 - `es_start_service`
@@ -100,7 +99,7 @@ Used to define Elasticsearch major version. Depends on `elastic_branch` by defau
 The user to run as, defaults to `elasticsearch`
 - `es_group`
 The group to run as, defaults to `elasticsearch`
-- `es_package_name` 
+- `es_package_name`
 Specifies the package name during installation. There is an option to choose open source version. Default to `{{ es_use_oss_version | ternary("elasticsearch-oss", "elasticsearch") }}`
 - `es_repo_name`
 Specifies Elasticsearch version during adding repository. There is an option to choose open source version. Default to `{{ es_use_oss_version | ternary("oss-" + es_major_version, es_major_version) }}`

@@ -22,7 +22,6 @@ galaxy_info:
     - name: Debian
       versions:
         - stretch
-        - jessie
 
   galaxy_tags:
     - elasticsearch
