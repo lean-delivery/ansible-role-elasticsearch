@@ -27,15 +27,15 @@
 
 - name: Get the rpm or apt package facts
   package_facts:
-    manager: "auto"
+    manager: auto
 
 - name: Set elasticsearch version if not defined
   set_fact:
-    es_version: "{{ ansible_facts.packages.elasticsearch[0].version }}"
+    es_version: '{{ ansible_facts.packages[es_package_name][0].version}}'
   when: es_version.find('.x') == 1
 
 - debug:
-    msg: "elasticsearch version is {{ es_version }}"
+    msg: 'elasticsearch version is {{ es_version }}'
 
 - name: Correcting elasticsearch default settings
   include_tasks: es-settings.yml
