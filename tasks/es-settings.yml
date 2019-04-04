@@ -47,7 +47,7 @@
 
     - name: Create paths if absent
       file:
-        path: '{{ default[es_path_item] }}'
+        path: '{{ lookup("vars", es_path_item) }}'
         state: directory
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
