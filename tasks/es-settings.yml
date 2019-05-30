@@ -17,7 +17,7 @@
       synchronize:
         src: '{{ default["es_home"] }}/'
         dest: '{{ es_home }}/'
-        recursive: True
+        recursive: true
       delegate_to: '{{ inventory_hostname }}'
 
     - name: Remove old destination
@@ -25,7 +25,7 @@
         path: '{{ default["es_home"] }}'
         state: absent
 
-  become: True
+  become: true
   when:
     - es_home != default['es_home']
     - default_home.stat.exists
@@ -75,7 +75,7 @@
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
         mode: 0644
-        force: True
+        force: true
       notify: Restart elasticsearch
       loop:
         - elasticsearch.yml
@@ -89,7 +89,7 @@
         src: default/elasticsearch.j2
         dest: '{{ es_default_file }}'
         mode: 0644
-        force: True
+        force: true
       notify: Restart elasticsearch
 
     - name: "Copy service configuration file"
@@ -97,7 +97,7 @@
         src: '{{ es_service_script }}.j2'
         dest: '{{ es_service_path }}/{{ es_service_script }}'
         mode: '{{ es_service_script_mode }}'
-        force: True
+        force: true
       notify: '{{ es_service_handlers }}'
 
-  become: True
+  become: true

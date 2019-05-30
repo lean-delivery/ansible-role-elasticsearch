@@ -16,7 +16,7 @@
         proto: tcp
         setype: http_port_t
         state: present
-  become: True
+  become: true
   when:
     - ansible_selinux.status == 'enabled'
     - ansible_selinux.mode != 'disabled'

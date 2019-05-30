@@ -6,12 +6,12 @@ elasticsearch_port: 9200
 elasticsearch_xmx: 512m
 elasticsearch_xms: 512m
 es_jvm_custom_parameters: ''
-elasticsearch_scripts_install: False
+elasticsearch_scripts_install: false
 elasticsearch_scripts_path: /opt/es_scripts
-elasticsearch_set_settings: True
-es_restart_on_change: True
-es_start_service: True
-m_lock_enabled: False
+elasticsearch_set_settings: true
+es_restart_on_change: true
+es_start_service: true
+m_lock_enabled: false
 es_home: '{{ default["es_home"] }}'
 es_pid_dir: '{{ default["es_pid_dir"] }}'
 es_log_dir: '{{ default["es_log_dir"] }}'
@@ -24,6 +24,6 @@ es_apt_url: 'deb https://artifacts.elastic.co/packages/{{ es_repo_name }}/apt st
 es_yum_url: 'https://artifacts.elastic.co/packages/{{ es_repo_name }}/yum'
 es_repo_file: 'elastic-{{ es_major_version }}'
 elastic_gpg_key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-es_use_oss_version: False
+es_use_oss_version: false
 es_config:
   node.name: node1

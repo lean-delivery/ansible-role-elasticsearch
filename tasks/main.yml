@@ -49,5 +49,5 @@
   service:
     name: elasticsearch
     state: started
-    enabled: True
-  become: True
+    enabled: true
+  become: true
