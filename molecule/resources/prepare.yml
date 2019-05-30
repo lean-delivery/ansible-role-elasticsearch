@@ -1,0 +1,7 @@
+---
+- name: Prepare
+  hosts: all
+  roles:
+    - role: lean_delivery.java
+      java_major_version: 8
+      transport: repositories
