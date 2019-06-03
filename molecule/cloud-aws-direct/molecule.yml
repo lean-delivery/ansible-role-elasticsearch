@@ -10,23 +10,9 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-elasticsearch
-    image: ami-9887c6e7
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-
-  # - name: test-aws-centos6-ansible-role-elasticsearch
-  #   image: ami-1585c46a
-  #   instance_type: m4.large
+  # - name: test-aws-centos7-ansible-role-elasticsearch
+  #   image: ami-9887c6e7
+  #   instance_type: m5.large
   #   region: us-east-1
   #   vpc_subnet_id: subnet-05a2ef2b767afec50
   #   assign_public_ip: false
@@ -36,21 +22,35 @@ platforms:
   #   wait_timeout: 1800
   #   ssh_user: centos
   #   groups:
-  #    - rhel_family
+  #     - rhel_family
 
-  - name: test-aws-ubuntu18-ansible-role-elasticsearch
-    image: ami-012fd5eb46f56731f
-    instance_type: m5.large
+  - name: test-aws-centos6-ansible-role-elasticsearch
+    image: ami-1585c46a
+    instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
+    spot_price: 0.04
     security_group_name:
       - default
-    spot_price: 0.04
     wait_timeout: 1800
-    ssh_user: ubuntu
+    ssh_user: centos
     groups:
-      - debian_family
+     - rhel_family
+
+  # - name: test-aws-ubuntu18-ansible-role-elasticsearch
+  #   image: ami-012fd5eb46f56731f
+  #   instance_type: m5.large
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-05a2ef2b767afec50
+  #   assign_public_ip: false
+  #   security_group_name:
+  #     - default
+  #   spot_price: 0.04
+  #   wait_timeout: 1800
+  #   ssh_user: ubuntu
+  #   groups:
+  #     - debian_family
 
   # - name: test-aws-Debian9-ansible-role-elasticsearch
   #   image: ami-003f19e0e687de1cd
@@ -79,8 +79,8 @@ provisioner:
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
+  #env:
+  #  ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-direct
 verifier:

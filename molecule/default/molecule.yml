@@ -10,25 +10,33 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-docker-centos7-ansible-role-elasticsearch
-    image: leandelivery/docker-systemd:centos7
+  # - name: test-docker-centos7-ansible-role-elasticsearch
+  #   image: leandelivery/docker-systemd:centos7
+  #   privileged: true
+  #   groups:
+  #     - rhel_family
+  - name: test-docker-centos6
+    image: guyton/centos6
     privileged: true
     groups:
       - rhel_family
-  - name: test-docker-ubuntu1804-ansible-role-elasticsearch
-    image: leandelivery/docker-systemd:ubuntu-18.04
-    privileged: true
-    security_opts:
-      - seccomp=unconfined
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /tmp
-      - /run
-    capabilities:
-      - SYS_ADMIN
-    groups:
-      - debian_family
+    port_bindings:
+      9200:9200
+    network_mode: host
+  # - name: test-docker-ubuntu1804-ansible-role-elasticsearch
+  #   image: leandelivery/docker-systemd:ubuntu-18.04
+  #   privileged: true
+  #   security_opts:
+  #     - seccomp=unconfined
+  #   volumes:
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  #   tmpfs:
+  #     - /tmp
+  #     - /run
+  #   capabilities:
+  #     - SYS_ADMIN
+  #   groups:
+  #     - debian_family
 provisioner:
   name: ansible
   log: false
