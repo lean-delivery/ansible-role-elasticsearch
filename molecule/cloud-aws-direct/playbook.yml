@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  # strategy: mitogen_linear
+  strategy: mitogen_linear
   roles:
     - role: ansible-role-elasticsearch
       elasticsearch_host: '{{ ansible_host }}'
@@ -11,3 +11,10 @@
       # es_data_dirs:
       #   - /opt/elda
       #   - /opt/eldb
+
+- name: Converge2 idempotence
+  hosts: all
+  roles:
+    - role: ansible-role-elasticsearch
+      elasticsearch_host: '{{ ansible_host }}'
+      elastic_branch: 6
