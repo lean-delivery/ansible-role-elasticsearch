@@ -26,7 +26,7 @@ platforms:
 
   - name: test-aws-centos6-ansible-role-elasticsearch
     image: ami-1585c46a
-    platform: centos6
+    #platform: centos6
     instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -75,11 +75,11 @@ provisioner:
     group_vars:
       centos6:
         es_config:
-          node.name: "{{ ansible_host }}"
-          cluster.name: Cluster_Name
-          network.host: "{{ ansible_host }}"
-          http.port: 9200
-          bootstrap.system_call_filter: false
+        node.name: "{{ ansible_host }}"
+        cluster.name: Cluster_Name
+        network.host: "{{ ansible_host }}"
+        http.port: 9200
+        bootstrap.system_call_filter: false
   config_options:
     defaults:
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
