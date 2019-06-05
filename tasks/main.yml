@@ -49,8 +49,7 @@
   lineinfile:
     path: /etc/security/limits.d/90-nproc.conf
     line: elasticsearch soft nproc 65535
-  become: yes
-  become_user: root
+  become: true
 
 - name: Start elasticsearch
   service:
