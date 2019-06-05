@@ -14,3 +14,4 @@
         cluster.name: Cluster_Name
         network.host: "{{ ansible_host }}"
         http.port: 9200
+        bootstrap.system_call_filter: false
