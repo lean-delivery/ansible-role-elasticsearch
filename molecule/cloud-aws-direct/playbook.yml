@@ -2,10 +2,17 @@
 - name: Converge
   hosts: all
   strategy: mitogen_linear
+  pre_tasks:
+    - name: out ansible_host
+      debug:
+        var: ansible_host
   roles:
     - role: ansible-role-elasticsearch
-      elasticsearch_host: localhost
       elastic_branch: 6
+      es_config:
+        node.name: "{{ ansible_host }}"
+        cluster.name: Cluster_Name
+        network.host: [_local_,_site_]
       # es_version: 6.4.3
       # es_use_oss_version: true
       # es_data_dirs:
