@@ -11,7 +11,7 @@
       transport: repositories
 
 - name: Prepare limits
-  hosts: rhel_family
+  hosts: all
   tasks:
     - name: Set Limits
       lineinfile:
