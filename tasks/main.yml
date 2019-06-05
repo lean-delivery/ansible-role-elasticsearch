@@ -45,8 +45,8 @@
   include_tasks: add-scripts.yml
   when: elasticsearch_scripts_install
 
-- name: Update limits
-  include_tasks: set_limits.yml
+#- name: Update limits
+#  include_tasks: set_limits.yml
 
 - name: Start elasticsearch
   service:
