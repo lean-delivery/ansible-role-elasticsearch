@@ -47,7 +47,7 @@
 
 - name: Update limits
   include_tasks: set_limits.yml
-  
+
 - name: Start elasticsearch
   service:
     name: elasticsearch
