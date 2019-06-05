@@ -12,4 +12,4 @@
       es_config:
         node.name: "{{ ansible_host }}"
         cluster.name: Cluster_Name
-        network.host: [_local_,_site_]
+        network.host: [_local_, _site_]
