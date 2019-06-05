@@ -43,14 +43,14 @@ provisioner:
       # strategy: mitogen_linear
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/prepare.yml
+    prepare: ../cloud-aws-centos6/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
   #env:
   #  ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-direct
+  name: cloud-aws-centos6
 verifier:
   name: testinfra
   options:
