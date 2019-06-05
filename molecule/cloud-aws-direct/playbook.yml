@@ -13,8 +13,3 @@
         node.name: "{{ ansible_host }}"
         cluster.name: Cluster_Name
         network.host: [_local_,_site_]
-      # es_version: 6.4.3
-      # es_use_oss_version: true
-      # es_data_dirs:
-      #   - /opt/elda
-      #   - /opt/eldb
