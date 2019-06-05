@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  strategy: mitogen_linear
+  pre_tasks:
+    - name: out ansible_host
+      debug:
+        var: ansible_host
+  roles:
+    - role: ansible-role-elasticsearch
+      elastic_branch: 6
+      #es_config:
+        #node.name: "{{ ansible_host }}"
+        #cluster.name: Cluster_Name
+        #network.host: "{{ ansible_host }}"
+        #http.port: 9200
+        #bootstrap.system_call_filter: false
