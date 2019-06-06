@@ -29,10 +29,6 @@
   package_facts:
     manager: auto
 
-- name: Print ansible facts
-  debug:
-    var: ansible_facts.packages
-
 - name: Set elasticsearch version if not defined
   set_fact:
     es_version: '{{ ansible_facts.packages[es_package_name][0].version }}'
