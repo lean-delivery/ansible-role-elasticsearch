@@ -9,5 +9,5 @@
     name: elasticsearch
     state: restarted
   when:
-    - es_restart_on_change
+    - es_restart_on_change | bool
   become: true

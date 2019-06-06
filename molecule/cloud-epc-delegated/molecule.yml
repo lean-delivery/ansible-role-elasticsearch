@@ -39,6 +39,9 @@ provisioner:
     prepare: ../resources/provisioning/EPC/prepare.yml
     destroy: ../resources/provisioning/EPC/destroy.yml
   config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+      strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
     ssh_connection:
       control_path: "/var/ans/%%h"
   lint:
