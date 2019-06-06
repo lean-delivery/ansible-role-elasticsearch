@@ -20,6 +20,7 @@ Ansible lint:
     - git clone https://github.com/lean-delivery/ansible-lint-rules.git ~/ansible-lint-rules
   script:
     - ansible-lint --version
+    - yamllint . -c .yamllint
     - ansible-lint . -c .ansible-lint
   after_script:
     - rm -rf ~/ansible-lint-rules
