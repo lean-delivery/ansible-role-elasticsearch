@@ -28,14 +28,14 @@ Ansible lint:
   tags:
     - aws
 
-Docker ansible-role-elasticsearch:
+.Docker ansible-role-elasticsearch:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - aws
 
-AWS ansible-role-elasticsearch:
+.AWS ansible-role-elasticsearch:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
@@ -53,7 +53,7 @@ AWS ansible-role-elasticsearch-7:
   tags:
     - aws
 
-EPC ansible-role-elasticsearch:
+.EPC ansible-role-elasticsearch:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
