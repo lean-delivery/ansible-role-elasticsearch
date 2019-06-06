@@ -36,7 +36,7 @@ platforms:
       - seccomp=unconfined
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init
+    # command: /sbin/init
     tmpfs:
       - /tmp
       - /run
