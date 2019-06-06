@@ -27,7 +27,7 @@
 
 - name: Get the rpm or apt package facts
   package_facts:
-    manager: apt
+    manager: auto
 
 - name: Print ansible facts
   debug:
