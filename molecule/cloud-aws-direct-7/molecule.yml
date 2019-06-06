@@ -94,7 +94,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-direct
+  name: cloud-aws-direct-7
 verifier:
   name: testinfra
   options:
