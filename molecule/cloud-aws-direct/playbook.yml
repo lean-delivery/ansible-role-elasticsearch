@@ -9,4 +9,3 @@
   roles:
     - role: ansible-role-elasticsearch
       elastic_branch: 6
-    
