@@ -26,6 +26,7 @@ platforms:
 
   - name: test-aws-centos6-ansible-role-elasticsearch
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
@@ -89,8 +90,6 @@ provisioner:
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
-  #env:
-  #  ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
   name: cloud-aws-direct
 verifier:
