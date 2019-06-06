@@ -15,7 +15,6 @@ platforms:
     platform: centos7
     instance_type: m5.large
     region: us-east-1
-    #vpc_subnet_id: subnet-05a2ef2b767afec50
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
@@ -31,7 +30,6 @@ platforms:
     platform: centos6
     instance_type: m4.large
     region: us-east-1
-    #vpc_subnet_id: subnet-05a2ef2b767afec50
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
@@ -48,7 +46,6 @@ platforms:
     platform: ubuntu18
     instance_type: m5.large
     region: us-east-1
-    #vpc_subnet_id: subnet-05a2ef2b767afec50
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     security_group_name:
@@ -64,7 +61,6 @@ platforms:
     platform: debian9
     instance_type: m5.large
     region: us-east-1
-    #vpc_subnet_id: subnet-05a2ef2b767afec50
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
     spot_price: 0.04
