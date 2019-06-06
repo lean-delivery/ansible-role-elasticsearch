@@ -15,6 +15,6 @@
   tasks:
     - name: Set Limits
       lineinfile:
-        path: /etc/security/limits.d/90-nproc.conf
+        path: /etc/security/limits.conf
         line: elasticsearch soft nproc 65535
       become: true
