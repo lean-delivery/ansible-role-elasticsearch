@@ -15,14 +15,6 @@ platforms:
     privileged: true
     groups:
       - rhel_family
-  - name: test-docker-centos6
-    image: guyton/centos6
-    privileged: true
-    groups:
-      - rhel_family
-    port_bindings:
-      9200:9200
-    network_mode: host
   - name: test-docker-ubuntu1804-ansible-role-elasticsearch
     image: leandelivery/docker-systemd:ubuntu-18.04
     privileged: true
