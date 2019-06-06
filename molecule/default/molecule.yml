@@ -14,7 +14,7 @@ platforms:
     image: leandelivery/docker-systemd:centos7
     privileged: true
     groups:
-      - rhel_family 
+      - rhel_family
   - name: test-docker-centos6
     image: guyton/centos6
     privileged: true
