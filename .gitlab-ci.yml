@@ -44,7 +44,7 @@ AWS ansible-role-elasticsearch:
   tags:
     - aws
 
-EPC ansible-role-elasticsearch:
+.EPC ansible-role-elasticsearch:
   variables:
     EPC_REGION: EPAM-BY2
   stage: deployment test
