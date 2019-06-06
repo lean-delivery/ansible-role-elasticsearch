@@ -9,3 +9,12 @@
     - role: lean_delivery.java
       java_major_version: 8
       transport: repositories
+
+- name: Prepare limits
+  hosts: rhel_family
+  tasks:
+    - name: Set Limits
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: elasticsearch soft nproc 65535
+      become: true
