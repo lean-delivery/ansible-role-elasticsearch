@@ -24,6 +24,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - centos
 
   # - name: test-aws-centos6-ansible-role-elasticsearch
   #   image: ami-1585c46a
@@ -39,7 +40,7 @@ platforms:
   #   ssh_user: centos
   #   groups:
   #    - rhel_family
-  #    - centos6
+  #    - centos
 
   # - name: test-aws-ubuntu18-ansible-role-elasticsearch
   #   image: ami-012fd5eb46f56731f
@@ -80,7 +81,7 @@ provisioner:
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
   inventory:
     group_vars:
-      centos6:
+      centos:
         es_config:
           node.name: '{{ ansible_host }}'
           cluster.name: elasticsearch
