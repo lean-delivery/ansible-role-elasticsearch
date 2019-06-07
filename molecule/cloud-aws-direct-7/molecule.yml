@@ -24,7 +24,6 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - centos
 
   - name: test-aws-centos6-ansible-role-elasticsearch7
     image: ami-1585c46a
@@ -40,37 +39,36 @@ platforms:
     ssh_user: centos
     groups:
      - rhel_family
-     - centos
 
-  # - name: test-aws-ubuntu18-ansible-role-elasticsearch7
-  #   image: ami-012fd5eb46f56731f
-  #   platform: ubuntu18
-  #   instance_type: t3.medium
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   assign_public_ip: false
-  #   security_group_name:
-  #     - default
-  #   spot_price: 0.04
-  #   wait_timeout: 1800
-  #   ssh_user: ubuntu
-  #   groups:
-  #     - debian_family
+  - name: test-aws-ubuntu18-ansible-role-elasticsearch7
+    image: ami-012fd5eb46f56731f
+    platform: ubuntu18
+    instance_type: t3.medium
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    security_group_name:
+      - default
+    spot_price: 0.04
+    wait_timeout: 1800
+    ssh_user: ubuntu
+    groups:
+      - debian_family
 
-  # - name: test-aws-Debian9-ansible-role-elasticsearch7
-  #   image: ami-003f19e0e687de1cd
-  #   platform: debian9
-  #   instance_type: t3.medium
-  #   region: us-east-1
-  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
-  #   assign_public_ip: false
-  #   spot_price: 0.04
-  #   security_group_name:
-  #     - default
-  #   wait_timeout: 1800
-  #   ssh_user: admin
-  #   groups:
-  #     - debian_family
+  - name: test-aws-Debian9-ansible-role-elasticsearch7
+    image: ami-003f19e0e687de1cd
+    platform: debian9
+    instance_type: t3.medium
+    region: us-east-1
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
+    spot_price: 0.04
+    security_group_name:
+      - default
+    wait_timeout: 1800
+    ssh_user: admin
+    groups:
+      - debian_family
 
 provisioner:
   name: ansible
@@ -80,15 +78,14 @@ provisioner:
       callback_whitelist: profile_tasks,timer
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
   inventory:
-    group_vars:
-      centos:
-        es_config:
-          node.name: '{{ ansible_host }}'
-          cluster.name: elasticsearch
-          network.host: '{{ ansible_host }}'
-          cluster.initial_master_nodes: '{{ ansible_host }}'
-          http.port: 9200
-          bootstrap.system_call_filter: false
+    vars:
+      es_config:
+        node.name: '{{ ansible_host }}'
+        cluster.name: elasticsearch
+        network.host: '{{ ansible_host }}'
+        cluster.initial_master_nodes: '{{ ansible_host }}'
+        http.port: 9200
+        bootstrap.system_call_filter: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
