@@ -86,6 +86,7 @@ provisioner:
           node.name: '{{ ansible_host }}'
           cluster.name: elasticsearch
           network.host: '{{ ansible_host }}'
+          cluster.initial_master_nodes: '{{ ansible_host }}'
           http.port: 9200
           bootstrap.system_call_filter: false
   playbooks:
