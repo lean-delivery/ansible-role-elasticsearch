@@ -49,7 +49,7 @@ AWS ansible-role-elasticsearch-7:
     AWS_REGION: us-east-1
   stage: deployment test
   script:
-    - molecule test -s cloud-aws-direct-7
+    - molecule --debug test -s cloud-aws-direct-7
   tags:
     - aws
 
