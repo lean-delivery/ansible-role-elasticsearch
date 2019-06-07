@@ -10,21 +10,21 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-elasticsearch7
-    image: ami-9887c6e7
-    platform: centos7
-    instance_type: t3.medium
-    region: us-east-1
-    vpc_subnet_id: subnet-0f2b9cd66faea38af
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - centos
+  # - name: test-aws-centos7-ansible-role-elasticsearch7
+  #   image: ami-9887c6e7
+  #   platform: centos7
+  #   instance_type: t3.medium
+  #   region: us-east-1
+  #   vpc_subnet_id: subnet-0f2b9cd66faea38af
+  #   assign_public_ip: false
+  #   spot_price: 0.04
+  #   security_group_name:
+  #     - default
+  #   wait_timeout: 1800
+  #   ssh_user: centos
+  #   groups:
+  #     - rhel_family
+  #     - centos
 
   - name: test-aws-centos6-ansible-role-elasticsearch7
     image: ami-1585c46a
