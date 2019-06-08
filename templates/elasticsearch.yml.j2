@@ -7,10 +7,8 @@
 cluster.name: elasticsearch
 {% endif %}
 
-{% if (es_version is version('7.0.0', '>')) %}
-{% if es_config['cluster.initial_master_nodes'] is not defined %}
+{% if (es_version is version('7.0.0', '>')) and (es_config['cluster.initial_master_nodes'] is not defined) %}
 cluster.initial_master_nodes: {{ elasticsearch_host }}
-{% endif %}
 {% endif %}
 
 {% if es_config['network.host'] is not defined %}
