@@ -24,7 +24,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - centos
+      - yml_config
 
   - name: test-aws-centos6-ansible-role-elasticsearch
     image: ami-1585c46a
@@ -39,8 +39,8 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
-     - centos
+      - rhel_family
+      - yml_config
 
   - name: test-aws-ubuntu18-ansible-role-elasticsearch
     image: ami-012fd5eb46f56731f
@@ -56,6 +56,7 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - yml_config
 
   - name: test-aws-Debian9-ansible-role-elasticsearch
     image: ami-003f19e0e687de1cd
@@ -71,6 +72,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - yml_config
 
 provisioner:
   name: ansible
@@ -81,7 +83,7 @@ provisioner:
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
   inventory:
     group_vars:
-      centos:
+      yml_config:
         es_config:
           node.name: '{{ ansible_host }}'
           cluster.name: elasticsearch
