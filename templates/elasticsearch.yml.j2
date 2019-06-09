@@ -1,9 +1,10 @@
 
-{% if es_config is defined %}
+{% if (es_config is defined) and (es_version is version('7.0.0', '<')) %}
 {{ es_config | to_nice_yaml }}
-{% if es_version is version('7.0.0', '>') %}
-{{ es7_config | to_nice_yaml }}
 {% endif %}
+
+{% if (es_config is defined) and (es_version is version('7.0.0', '>')) %}
+{{ es7_config | to_nice_yaml }}
 {% endif %}
 
 {% if es_config['cluster.name'] is not defined %}
