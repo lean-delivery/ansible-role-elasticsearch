@@ -44,7 +44,7 @@ AWS ansible-role-elasticsearch:
   tags:
     - aws
 
-AWS ansible-role-elasticsearch-7:
+.AWS ansible-role-elasticsearch-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
