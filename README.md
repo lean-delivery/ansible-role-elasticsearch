@@ -39,7 +39,7 @@ No problems in role with active SELinux were encountered. In a case of any issue
 All Elasticsearch configuration parameters are supported. This is achieved using a configuration map parameter `es_config` which is serialized into the elasticsearch.yml file.
 The use of a map ensures the Ansible playbook does not need to be updated to reflect new/deprecated/plugin configuration parameters.
 - `elastic_branch`
-Is used to select main Elasticsearch branch to be installed (5.x or 6.x current stable versions). By default this variable is set to `6`. So, 6.x version is installed by default. You can override this by setting this variable in playbook.
+Is used to select main Elasticsearch branch to be installed (6.x or 7.x current stable versions). By default this variable is set to `6`. So, 6.x version is installed by default. You can override this by setting this variable in playbook.
 - `es_version`
 Used to define full Elasticsearch version (e.g. 6.6.0). Depends on `elastic_branch` by default. Default value is `6.x`
 - `elasticsearch_host`
