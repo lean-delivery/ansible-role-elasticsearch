@@ -3,7 +3,7 @@
 {{ es_config | to_nice_yaml }}
 {% endif %}
 
-{% if (es_config is defined) and (es_version is version('7.0.0', '>')) %}
+{% if (es7_config is defined) and (es_version is version('7.0.0', '>')) %}
 {{ es7_config | to_nice_yaml }}
 {% endif %}
 
