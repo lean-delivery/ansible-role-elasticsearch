@@ -1,13 +1,9 @@
 #################################### Config ####################################
-{% if (es_config is defined) and (es_version is version('7.0.0', '<')) %}
+{% if es_config is defined %}
 {{ es_config | to_nice_yaml }}
 {% endif %}
 
-{% if (es7_config is defined) and (es_version is version('7.0.0', '>')) %}
-{{ es7_config | to_nice_yaml }}
-{% endif %}
-
-{% if (es_version is version('7.0.0', '>')) and (es7_config['cluster.initial_master_nodes'] is not defined) %}
+{% if (es_version is version('7.0.0', '>')) and (es_config['cluster.initial_master_nodes'] is not defined) %}
 cluster.initial_master_nodes: {{ elasticsearch_host }}
 {% endif %}
 

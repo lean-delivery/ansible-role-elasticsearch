@@ -86,17 +86,8 @@ provisioner:
       yml_config:
         es_config:
           node.name: '{{ ansible_host }}'
-          cluster.name: elasticsearch
-          network.host: '{{ ansible_host }}'
           http.port: 9200
           bootstrap.system_call_filter: false
-        es7_config:
-          node.name: '{{ ansible_host }}'
-          cluster.name: elasticsearch
-          network.host: '{{ ansible_host }}'
-          http.port: 9200
-          bootstrap.system_call_filter: false
-          cluster.initial_master_nodes: '{{ ansible_host }}'
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
