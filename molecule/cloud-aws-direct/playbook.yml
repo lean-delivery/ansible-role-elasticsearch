@@ -5,4 +5,4 @@
   roles:
     - role: ansible-role-elasticsearch
       elasticsearch_host: '{{ ansible_host }}'
-      elastic_branch: 7
+      elastic_branch: 6
