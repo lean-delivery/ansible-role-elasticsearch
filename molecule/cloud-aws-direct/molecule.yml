@@ -13,7 +13,7 @@ platforms:
   - name: test-aws-centos7-ansible-role-elasticsearch
     image: ami-9887c6e7
     platform: centos7
-    instance_type: t3.small
+    instance_type: t3.medium
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -24,6 +24,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - yml_config
 
   - name: test-aws-centos6-ansible-role-elasticsearch
     image: ami-1585c46a
@@ -38,13 +39,13 @@ platforms:
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
-     - centos6
+      - rhel_family
+      - yml_config
 
   - name: test-aws-ubuntu18-ansible-role-elasticsearch
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
-    instance_type: t3.small
+    instance_type: t3.medium
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -55,11 +56,12 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - yml_config
 
   - name: test-aws-Debian9-ansible-role-elasticsearch
     image: ami-003f19e0e687de1cd
     platform: debian9
-    instance_type: t3.small
+    instance_type: t3.medium
     region: us-east-1
     vpc_subnet_id: subnet-0f2b9cd66faea38af
     assign_public_ip: false
@@ -70,6 +72,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - yml_config
 
 provisioner:
   name: ansible
@@ -80,11 +83,9 @@ provisioner:
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
   inventory:
     group_vars:
-      centos6:
+      yml_config:
         es_config:
           node.name: '{{ ansible_host }}'
-          cluster.name: elasticsearch
-          network.host: '{{ ansible_host }}'
           http.port: 9200
           bootstrap.system_call_filter: false
   playbooks:
