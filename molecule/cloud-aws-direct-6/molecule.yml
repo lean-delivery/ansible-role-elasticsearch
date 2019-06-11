@@ -10,7 +10,7 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-elasticsearch
+  - name: test-aws-centos7-elasticsearch-6
     image: ami-9887c6e7
     platform: centos7
     instance_type: t3.medium
@@ -26,7 +26,7 @@ platforms:
       - rhel_family
       - yml_config
 
-  - name: test-aws-centos6-ansible-role-elasticsearch
+  - name: test-aws-centos6-elasticsearch-6
     image: ami-1585c46a
     platform: centos6
     instance_type: m4.large
@@ -42,7 +42,7 @@ platforms:
       - rhel_family
       - yml_config
 
-  - name: test-aws-ubuntu18-ansible-role-elasticsearch
+  - name: test-aws-ubuntu18-elasticsearch-6
     image: ami-012fd5eb46f56731f
     platform: ubuntu18
     instance_type: t3.medium
@@ -58,7 +58,7 @@ platforms:
       - debian_family
       - yml_config
 
-  - name: test-aws-Debian9-ansible-role-elasticsearch
+  - name: test-aws-Debian9-elasticsearch-6
     image: ami-003f19e0e687de1cd
     platform: debian9
     instance_type: t3.medium
@@ -95,7 +95,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: cloud-aws-direct
+  name: cloud-aws-direct-6
 verifier:
   name: testinfra
   options:
