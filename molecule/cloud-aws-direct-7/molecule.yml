@@ -24,7 +24,6 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - yml_config
 
   - name: test-aws-centos6-elasticsearch-7
     image: ami-1585c46a
@@ -56,7 +55,6 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
-      - yml_config
 
   - name: test-aws-Debian9-elasticsearch-7
     image: ami-003f19e0e687de1cd
@@ -72,7 +70,6 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
-      - yml_config
 
 provisioner:
   name: ansible

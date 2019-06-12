@@ -29,14 +29,14 @@ Ansible lint:
   tags:
     - aws
 
-.Docker ansible-role-elasticsearch:
+Docker ansible-role-elasticsearch:
   stage: deployment test
   script:
     - molecule test -s default
   tags:
     - aws
 
-.AWS ansible-role-elasticsearch-7:
+AWS ansible-role-elasticsearch-7:
   variables:
     AWS_REGION: us-east-1
   stage: deployment test
