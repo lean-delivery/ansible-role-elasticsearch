@@ -24,6 +24,7 @@ platforms:
     wait_timeout: 3600
     groups:
       - rhel_family
+      - yml_config
   - name: test-epc-ubuntu1804-elastic
     image: Ubuntu18.04_64-bit
     shape: medium
@@ -44,6 +45,13 @@ provisioner:
       strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
     ssh_connection:
       control_path: "/var/ans/%%h"
+  inventory:
+    group_vars:
+      yml_config:
+        es_config:
+          node.name: '{{ ansible_host }}'
+          http.port: 9200
+          bootstrap.system_call_filter: false
   lint:
     name: ansible-lint
   env:
