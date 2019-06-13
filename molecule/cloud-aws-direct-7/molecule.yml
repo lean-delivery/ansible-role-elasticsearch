@@ -10,12 +10,13 @@ lint:
   options:
     config-file: .yamllint
 platforms:
-  - name: test-aws-centos7-ansible-role-elasticsearch
+  - name: test-aws-centos7-elasticsearch-7
     image: ami-9887c6e7
-    instance_type: m5.large
+    platform: centos7
+    instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -24,40 +25,29 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-ansible-role-elasticsearch
+  - name: test-aws-centos6-elasticsearch-7
     image: ami-1585c46a
+    platform: centos6
     instance_type: m4.large
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
     wait_timeout: 1800
     ssh_user: centos
     groups:
-     - rhel_family
+      - rhel_family
+      - yml_config
 
-  - name: test-aws-ubuntu16-ansible-role-elasticsearch
-    image: ami-09677e0a6b14905b0
-    instance_type: m5.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
-    security_group_name:
-      - default
-    spot_price: 0.04
-    wait_timeout: 1800
-    ssh_user: ubuntu
-    groups:
-      - debian_family
-
-  - name: test-aws-ubuntu18-ansible-role-elasticsearch
+  - name: test-aws-ubuntu18-elasticsearch-7
     image: ami-012fd5eb46f56731f
-    instance_type: m5.large
+    platform: ubuntu18
+    instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     security_group_name:
       - default
     spot_price: 0.04
@@ -66,12 +56,13 @@ platforms:
     groups:
       - debian_family
 
-  - name: test-aws-Debian9-ansible-role-elasticsearch
+  - name: test-aws-Debian9-elasticsearch-7
     image: ami-003f19e0e687de1cd
-    instance_type: m5.large
+    platform: debian9
+    instance_type: t3.medium
     region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: False
+    vpc_subnet_id: subnet-0f2b9cd66faea38af
+    assign_public_ip: false
     spot_price: 0.04
     security_group_name:
       - default
@@ -82,17 +73,26 @@ platforms:
 
 provisioner:
   name: ansible
-  log: False
+  log: false
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks,timer
+      strategy_plugins: /tmp/molecule/plugins/mitogen/ansible_mitogen/plugins/strategy
+  inventory:
+    group_vars:
+      yml_config:
+        es_config:
+          node.name: '{{ ansible_host }}'
+          http.port: 9200
+          bootstrap.system_call_filter: false
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
-    prepare: ../resources/provisioning/AWS/prepare.yml
+    prepare: ../resources/prepare.yml
     destroy: ../resources/provisioning/AWS/destroy.yml
   lint:
     name: ansible-lint
-  env:
-    ANSIBLE_LIBRARY: ${ANSIBLE_LIBRARY}
 scenario:
-  name: cloud-aws-direct
+  name: cloud-aws-direct-7
 verifier:
   name: testinfra
   options:

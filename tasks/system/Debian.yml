@@ -23,15 +23,15 @@
       apt_repository:
         repo: '{{ es_apt_url }}'
         state: present
-        update_cache: True
+        update_cache: true
         filename: '{{ es_repo_file }}.list'
 
     - name: Debian - Installing Elasticsearch package
       apt:
         name: '{{ es_package_name }}'
         state: present
-        force: False
+        force: false
       register: installed_package
       until: installed_package is succeeded
       notify: Restart elasticsearch
-  become: True
+  become: true

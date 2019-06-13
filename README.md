@@ -39,7 +39,7 @@ No problems in role with active SELinux were encountered. In a case of any issue
 All Elasticsearch configuration parameters are supported. This is achieved using a configuration map parameter `es_config` which is serialized into the elasticsearch.yml file.
 The use of a map ensures the Ansible playbook does not need to be updated to reflect new/deprecated/plugin configuration parameters.
 - `elastic_branch`
-Is used to select main Elasticsearch branch to be installed (5.x or 6.x current stable versions). By default this variable is set to `6`. So, 6.x version is installed by default. You can override this by setting this variable in playbook.
+Is used to select main Elasticsearch branch to be installed (6.x or 7.x current stable versions). By default this variable is set to `6`. So, 6.x version is installed by default. You can override this by setting this variable in playbook.
 - `es_version`
 Used to define full Elasticsearch version (e.g. 6.6.0). Depends on `elastic_branch` by default. Default value is `6.x`
 - `elasticsearch_host`
@@ -132,40 +132,80 @@ Example Playbook
 ```
 
 ### Installing multi node solution with elasticsearch 6.x version:
-```yaml
-- name: Install Elasticsearch 6.x and Kibana. Configure node as controller
-  hosts: controller
-  roles:
-    - role: lean_delivery.java
-    - role: lean_delivery.elasticsearch
-    - role: lean_delivery.kibana
-  vars:
-    elastic_branch: 6
-    es_config:
-      node.master: false
-      node.data: false
-      node.ingest: false
-      node.name: "{{ ansible_host }}"
-      cluster.name: Cluster_Name
-      network.host: [_local_,_site_]
-      discovery.zen.ping.unicast.hosts: ["node1.example.com","node2.example.com","node3.example.com"]
-      discovery.zen.minimum_master_nodes: 2
 
-- name: Install Elasticsearch 6.x and configure nodes as data & master
-  hosts: dm
-  roles:
-    - role: lean_delivery.java
-    - role: lean_delivery.elasticsearch
+Playbook structure:
+
+```yaml
+.
+├── elastic_cluster_inventory
+├── group_vars
+│   ├── all.yml
+│   ├── controller.yml
+│   └── dm.yml
+└── elastic_cluster.yml
+```
+
+elastic_cluster_inventory:
+
+```yaml
+[controller]
+node1
+
+[dm]
+node2
+node3
+node4
+
+[cluster:children]
+controller
+dm
+```
+
+group_vars/controller.yml:
+
+```yaml
+kibana_host: '{{ ansible_host }}'
+es_config: 
+  node.name: '{{ ansible_host }}'
+  cluster.name: my_cluster
+  network.host: [_local_,_site_]
+  node.master: false
+  node.data: false
+  node.ingest: false
+  discovery.zen.minimum_master_nodes: 2
+  discovery.zen.ping.unicast.hosts: '{{ cluster_list }}'
+```
+
+group_vars/dm.yml:
+
+```yaml
+es_config:
+  node.name: '{{ ansible_host }}'
+  cluster.name: my_cluster
+  network.host: [_local_,_site_]
+  node.master: true
+  node.data: true
+  discovery.zen.minimum_master_nodes: 2
+  discovery.zen.ping.unicast.hosts: '{{ cluster_list }}'
+```
+
+elastic_cluster.yml:
+
+```yaml
+- name: Install elasticsearch and configure cluster
+  hosts: all
   vars:
-    elastic_branch: 6
-    es_config:
-      node.name: "{{ ansible_host }}"
-      cluster.name: Cluster_Name
-      network.host: [_local_,_site_]
-      node.master: true
-      node.data: true
-      discovery.zen.ping.unicast.hosts: ["node1.example.com","node2.example.com","node3.example.com"]
-      discovery.zen.minimum_master_nodes: 2
+    cluster_list: "{{ groups['cluster'] | map ('extract', hostvars, ['ansible_hostname']) |  join (',') }}"
+
+  roles:
+   - role: lean_delivery.java
+   - role: lean_delivery.elasticsearch
+
+- name: Install kibana on controller node
+  hosts: controller
+
+  roles:
+    - role: lean_delivery.kibana
 ```
 
 License

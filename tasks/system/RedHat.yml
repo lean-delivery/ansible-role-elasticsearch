@@ -18,20 +18,20 @@
         description: Elasticsearch repository
         file: '{{ es_repo_file }}'
         baseurl: '{{ es_yum_url }}'
-        gpgcheck: True
+        gpgcheck: true
         gpgkey: '{{ elastic_gpg_key }}'
-        enabled: True
+        enabled: true
         state: present
 
     - name: Redhat - Installing Elasticsearch package
       yum:
         name: '{{ es_package_name }}'
         state: present
-        update_cache: True
+        update_cache: true
       register: installed_package
       until: installed_package is succeeded
       notify: Restart elasticsearch
-  become: True
+  become: true
 
 - name: Checking selinux support
   include_tasks: ../selinux-support.yml

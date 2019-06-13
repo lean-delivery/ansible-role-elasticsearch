@@ -6,7 +6,7 @@
     group: root
     path: '{{ elasticsearch_scripts_path }}'
     state: directory
-  become: True
+  become: true
 
 # Install script which allow show and delete all indices
 - name: Install script file deleting all indices
@@ -16,7 +16,7 @@
     owner: root
     group: root
     mode: 0755
-  become: True
+  become: true
 
 # Install script which allow delete all indices matching with pattern
 - name: Install script file deleting indices by pattern
@@ -26,7 +26,7 @@
     owner: root
     group: root
     mode: 0755
-  become: True
+  become: true
 
 # Install script which allow delete all indices older than N days
 - name: Install script file deleting indices older than specified
@@ -36,4 +36,4 @@
     owner: root
     group: root
     mode: 0755
-  become: True
+  become: true
