@@ -2,18 +2,6 @@
 - name: Converge
   hosts: all
   strategy: mitogen_linear
-  pre_tasks:
-    - name: debug ansible_host
-      debug:
-        var: ansible_host
-
-    - name: debug ansible_fqdn
-      debug:
-        var: ansible_fqdn
-
-    - name: debug inventory_hostname
-      debug:
-        var: inventory_hostname
   roles:
     - role: ansible-role-elasticsearch
       elasticsearch_host: '{{ ansible_host }}'
