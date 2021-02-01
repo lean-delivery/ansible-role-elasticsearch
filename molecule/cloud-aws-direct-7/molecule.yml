@@ -21,6 +21,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - java11
 
   - name: test-aws-rhel8-elasticsearch-7
     platform: rhel8
@@ -35,6 +36,7 @@ platforms:
     ssh_user: ec2-user
     groups:
       - rhel_family
+      - java11
 
   - name: test-aws-ubuntu18-elasticsearch-7
     image: ami-012fd5eb46f56731f
@@ -50,6 +52,7 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - java11
 
   - name: test-aws-Debian10-elasticsearch-7
     image: ami-0dedf6a6502877301
@@ -65,6 +68,7 @@ platforms:
     ssh_user: admin
     groups:
       - debian_family
+      - java11
 
 provisioner:
   name: ansible
@@ -74,6 +78,18 @@ provisioner:
       callback_whitelist: profile_tasks,timer
     ssh_connection:
       pipelining: true
+  inventory:
+    group_vars:
+      java8:
+        java_major_version: 8
+        transport: repositories
+        java_tarball_install: false
+        java_distribution: openjdk
+      java11:
+        java_major_version: 11
+        transport: repositories
+        java_tarball_install: false
+        java_distribution: openjdk
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
