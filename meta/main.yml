@@ -1,4 +1,6 @@
 ---
+dependencies: []
+
 galaxy_info:
   role_name: elasticsearch
   author: "Lean Delivery Team <team@lean-delivery.com>"
