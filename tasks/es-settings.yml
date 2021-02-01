@@ -72,7 +72,7 @@
 
     - name: Copy Configuration Files
       template:
-        src: '{{ es_config_item | basename }}.j2'
+        src: '{{ es_config_item }}.j2'
         dest: '{{ es_conf_dir }}/{{ es_config_item }}'
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
@@ -81,10 +81,19 @@
       notify: Restart elasticsearch
       loop:
         - elasticsearch.yml
-        - '{{ es_jvm_config_file }}'
         - log4j2.properties
       loop_control:
         loop_var: es_config_item
+
+    - name: Template jvm.options settings
+      template:
+        src: jvm.options.j2
+        dest: '{{ es_conf_dir }}/{{ es_jvm_config_file }}'
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
+        mode: 0644
+        force: true
+      notify: Restart elasticsearch
 
     - name: Copy Default File for Instance
       template:
