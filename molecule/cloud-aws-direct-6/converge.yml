@@ -1,7 +1,6 @@
 ---
 - name: Converge
   hosts: all
-  strategy: mitogen_linear
   roles:
     - role: ansible-role-elasticsearch
       elasticsearch_host: '{{ ansible_host }}'
