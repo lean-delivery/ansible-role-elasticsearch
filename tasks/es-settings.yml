@@ -81,7 +81,7 @@
       notify: Restart elasticsearch
       loop:
         - elasticsearch.yml
-        # - jvm.options
+        - jvm.options.d/jvm.options
         - log4j2.properties
       loop_control:
         loop_var: es_config_item
