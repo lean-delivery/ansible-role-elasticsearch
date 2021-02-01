@@ -40,7 +40,7 @@
       loop:
         - es_conf_dir
         - es_log_dir
-        # - es_pid_dir
+        - es_pid_dir
         - es_data_dirs
       loop_control:
         loop_var: es_path_item
@@ -55,7 +55,7 @@
       loop:
         - es_conf_dir
         - es_log_dir
-        # - es_pid_dir
+        - es_pid_dir
       loop_control:
         loop_var: es_path_item
 
@@ -81,7 +81,7 @@
       notify: Restart elasticsearch
       loop:
         - elasticsearch.yml
-        - jvm.options
+        # - jvm.options
         - log4j2.properties
       loop_control:
         loop_var: es_config_item
