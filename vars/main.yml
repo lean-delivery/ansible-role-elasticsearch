@@ -3,7 +3,7 @@ es_major_version: '{{ elastic_branch }}.x'
 es_user: elasticsearch
 es_group: elasticsearch
 es_jvm_config_file: >-
-  {{ (elastic_branch == 6) | ternary('jvm.options', 'jvm.options.d/jvm.options') }}
+  {{ (elastic_branch < 7) | ternary('jvm.options', 'jvm.options.d/jvm.options') }}
 
 es_package_name: >-
   {{ es_use_oss_version | ternary('elasticsearch-oss', 'elasticsearch') }}
