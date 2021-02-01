@@ -1,0 +1,22 @@
+---
+# This is an example playbook to execute Ansible tests.
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Gather the package facts
+      package_facts:
+        manager: auto
+
+    - name: Populate service facts
+      service_facts:
+
+    - name: Assert that elasticsearch package is installed
+      assert:
+        that: ansible_facts.packages['elasticsearch']
+
+    - name: Assert that elasticsearch service is running
+      assert:
+        that: |
+                "'running' in ansible_facts.services['elasticsearch.service'].state"
+                or
+                "'running' in ansible_facts.services['elasticsearch'].state"

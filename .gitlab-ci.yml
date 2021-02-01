@@ -5,13 +5,10 @@ stages:
   - deployment test
 
 before_script:
-  - export PY_COLORS=1
   - rm -rf molecule/resources/provisioning
-  - rm -rf /tmp/molecule/plugins
   - ansible --version
   - molecule --version
   - git clone https://github.com/lean-delivery/ansible-molecule-drivers.git molecule/resources/provisioning
-  - mkdir -p /tmp/molecule/plugins && git clone https://github.com/dw/mitogen.git /tmp/molecule/plugins/mitogen
 
 variables:
   GET_SOURCES_ATTEMPTS: "5"
@@ -29,7 +26,7 @@ Ansible lint:
   tags:
     - aws
 
-Docker ansible-role-elasticsearch:
+.Docker ansible-role-elasticsearch:
   stage: deployment test
   script:
     - molecule test -s default
@@ -53,12 +50,3 @@ AWS ansible-role-elasticsearch-6:
     - molecule test -s cloud-aws-direct-6
   tags:
     - aws
-
-EPC ansible-role-elasticsearch:
-  variables:
-    EPC_REGION: EPAM-BY2
-  stage: deployment test
-  script:
-    - molecule test -s cloud-epc-delegated
-  tags:
-    - delegated

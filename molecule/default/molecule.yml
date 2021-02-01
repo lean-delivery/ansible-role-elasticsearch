@@ -5,10 +5,7 @@ dependency:
     role-file: requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: .yamllint
+lint: ansible-lint
 platforms:
   - name: test-docker-centos7-ansible-role-elasticsearch
     image: leandelivery/docker-systemd:centos7
@@ -35,14 +32,9 @@ provisioner:
   config_options:
     defaults:
       callback_whitelist: profile_tasks,timer
-  lint:
-    name: ansible-lint
+  playbooks:
+    verify: ../resources/tests/verify.yml
 scenario:
   name: default
 verifier:
-  name: testinfra
-  options:
-    verbose: true
-  directory: ../resources/tests/
-  lint:
-    name: flake8
+  name: ansible
