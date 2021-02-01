@@ -21,6 +21,7 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
+      - java11
 
   - name: test-aws-rhel8-elasticsearch-7
     platform: rhel8
@@ -35,6 +36,7 @@ platforms:
     ssh_user: ec2-user
     groups:
       - rhel_family
+      - java11
 
   - name: test-aws-ubuntu18-elasticsearch-7
     image: ami-012fd5eb46f56731f
@@ -50,21 +52,23 @@ platforms:
     ssh_user: ubuntu
     groups:
       - debian_family
+      - java11
 
-  - name: test-aws-Debian9-elasticsearch-7
-    image: ami-003f19e0e687de1cd
-    platform: debian9
+  - name: test-aws-Debian10-elasticsearch-7
+    image: ami-0dedf6a6502877301
+    platform: debian10
     instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
-    spot_price: 0.04
+    spot_price: 0.05
     security_group_name:
       - default
     wait_timeout: 1800
     ssh_user: admin
     groups:
       - debian_family
+      - java11
 
 provisioner:
   name: ansible
@@ -76,11 +80,16 @@ provisioner:
       pipelining: true
   inventory:
     group_vars:
-      yml_config:
-        es_config:
-          node.name: '{{ ansible_host }}'
-          http.port: 9200
-          bootstrap.system_call_filter: false
+      java8:
+        java_major_version: 8
+        transport: repositories
+        java_tarball_install: false
+        java_distribution: openjdk
+      java11:
+        java_major_version: 11
+        transport: repositories
+        java_tarball_install: false
+        java_distribution: openjdk
   playbooks:
     create: ../resources/provisioning/AWS/create.yml
     prepare: ../resources/prepare.yml
