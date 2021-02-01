@@ -51,6 +51,7 @@
         state: directory
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
+        mode: 0755
       loop:
         - es_conf_dir
         - es_log_dir
@@ -64,6 +65,7 @@
         state: directory
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
+        mode: 0755
       loop: '{{ es_data_dirs }}'
       loop_control:
         loop_var: es_datapath_item
@@ -79,10 +81,19 @@
       notify: Restart elasticsearch
       loop:
         - elasticsearch.yml
-        - jvm.options
         - log4j2.properties
       loop_control:
         loop_var: es_config_item
+
+    - name: Template jvm.options settings
+      template:
+        src: jvm.options.j2
+        dest: '{{ es_conf_dir }}/{{ es_jvm_config_file }}'
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
+        mode: 0644
+        force: true
+      notify: Restart elasticsearch
 
     - name: Copy Default File for Instance
       template:
@@ -96,6 +107,8 @@
       template:
         src: '{{ es_service_script }}.j2'
         dest: '{{ es_service_path }}/{{ es_service_script }}'
+        owner: '{{ es_user }}'
+        group: '{{ es_group }}'
         mode: '{{ es_service_script_mode }}'
         force: true
       notify: '{{ es_service_handlers }}'
