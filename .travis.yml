@@ -2,8 +2,6 @@
 os: linux
 dist: focal
 
-# language: python
-
 services:
   - docker
 
