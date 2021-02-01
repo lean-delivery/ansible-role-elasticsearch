@@ -122,13 +122,13 @@ Example Playbook
 
 ### Installing elasticsearch 6.x version:
 ```yaml
-- name: Install Elasticsearch 6.x
+- name: Install Elasticsearch 7.x
   hosts: localhost
   roles:
     - role: lean_delivery.java
     - role: lean_delivery.elasticsearch
   vars:
-    elastic_branch: 6
+    elastic_branch: 7
 ```
 
 ### Installing multi node solution with elasticsearch 6.x version:
