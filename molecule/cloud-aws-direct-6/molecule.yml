@@ -22,22 +22,6 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-elasticsearch-6
-    image: ami-1585c46a
-    platform: centos6
-    instance_type: m4.large
-    region: us-east-1
-    vpc_subnet_id: subnet-05a2ef2b767afec50
-    assign_public_ip: false
-    spot_price: 0.04
-    security_group_name:
-      - default
-    wait_timeout: 1800
-    ssh_user: centos
-    groups:
-      - rhel_family
-      - yml_config
-
   - name: test-aws-ubuntu18-elasticsearch-6
     image: ami-012fd5eb46f56731f
     platform: ubuntu18

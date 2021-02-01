@@ -51,6 +51,7 @@
         state: directory
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
+        mode: 0644
       loop:
         - es_conf_dir
         - es_log_dir
@@ -64,6 +65,7 @@
         state: directory
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
+        mode: 0644
       loop: '{{ es_data_dirs }}'
       loop_control:
         loop_var: es_datapath_item

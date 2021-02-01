@@ -22,10 +22,9 @@ platforms:
     groups:
       - rhel_family
 
-  - name: test-aws-centos6-elasticsearch-7
-    image: ami-1585c46a
-    platform: centos6
-    instance_type: m4.large
+  - name: test-aws-centos8-elasticsearch-7
+    platform: centos8
+    instance_type: m5.large
     region: us-east-1
     vpc_subnet_id: subnet-05a2ef2b767afec50
     assign_public_ip: false
@@ -36,7 +35,6 @@ platforms:
     ssh_user: centos
     groups:
       - rhel_family
-      - yml_config
 
   - name: test-aws-ubuntu18-elasticsearch-7
     image: ami-012fd5eb46f56731f
