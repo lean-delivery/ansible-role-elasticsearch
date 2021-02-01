@@ -1,7 +1,7 @@
 elasticsearch role
 =========
 [![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-elasticsearch/master/LICENSE)
-[![Build Status](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch)
+[![Build Status](https://travis-ci.com/lean-delivery/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/lean-delivery/ansible-role-elasticsearch)
 [![Build Status](https://gitlab.com/lean-delivery/ansible-role-elasticsearch/badges/master/pipeline.svg)](https://gitlab.com/lean-delivery/ansible-role-elasticsearch)
 [![Galaxy](https://img.shields.io/badge/galaxy-lean__delivery.elasticsearch-blue.svg)](https://galaxy.ansible.com/lean_delivery/elasticsearch)
 ![Ansible](https://img.shields.io/ansible/role/d/30177.svg)
@@ -120,7 +120,7 @@ https://galaxy.ansible.com/lean_delivery/java
 Example Playbook
 ----------------
 
-### Installing elasticsearch 6.x version:
+### Installing elasticsearch 7.x version:
 ```yaml
 - name: Install Elasticsearch 7.x
   hosts: localhost
@@ -212,6 +212,8 @@ License
 -------
 
 Apache
+
+[![License](https://img.shields.io/badge/license-Apache-green.svg?style=flat)](https://raw.githubusercontent.com/lean-delivery/ansible-role-elasticsearch/master/LICENSE)
 
 Author Information
 ------------------
