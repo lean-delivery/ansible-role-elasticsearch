@@ -72,7 +72,7 @@
 
     - name: Copy Configuration Files
       template:
-        src: '{{ es_config_item | basename }}.j2'
+        src: '{{ es_config_item }}.j2'
         dest: '{{ es_conf_dir }}/{{ es_config_item }}'
         owner: '{{ es_user }}'
         group: '{{ es_group }}'
