@@ -1,7 +1,7 @@
 ---
 elastic_branch: 6
 es_version: '{{ es_major_version }}'
-elasticsearch_host: localhost
+elasticsearch_host: '{{ es_default_host }}'
 elasticsearch_port: 9200
 elasticsearch_xmx: 512m
 elasticsearch_xms: 512m
@@ -26,4 +26,4 @@ es_repo_file: 'elastic-{{ es_major_version }}'
 elastic_gpg_key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 es_use_oss_version: false
 es_config:
-  node.name: node1
+  node.name: '{{ inventory_hostname }}'

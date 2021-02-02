@@ -1,5 +1,6 @@
 ---
 es_major_version: '{{ elastic_branch }}.x'
+es_default_host: localhost
 es_user: elasticsearch
 es_group: elasticsearch
 es_jvm_config_file: >-

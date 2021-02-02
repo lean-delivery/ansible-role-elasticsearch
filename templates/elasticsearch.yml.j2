@@ -4,7 +4,7 @@
 {% endif %}
 
 {% if (es_version is version('7.0.0', '>')) and (es_config['cluster.initial_master_nodes'] is not defined) %}
-cluster.initial_master_nodes: {{ elasticsearch_host }}
+cluster.initial_master_nodes: '{{ inventory_hostname }}'
 {% endif %}
 
 {% if es_config['cluster.name'] is not defined %}
