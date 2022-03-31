@@ -4,7 +4,7 @@ es_default_host: localhost
 es_user: elasticsearch
 es_group: elasticsearch
 es_jvm_config_file: >-
-  {{ (elastic_branch < 7) | ternary('jvm.options', 'jvm.options.d/heap.options') }}
+  {{ (elastic_branch|int < 7) | ternary('jvm.options', 'jvm.options.d/heap.options') }}
 
 es_package_name: >-
   {{ es_use_oss_version | ternary('elasticsearch-oss', 'elasticsearch') }}
